@@ -28,6 +28,10 @@ app.get("/login", userController.renderLogin);
 
 app.post("/login", userController.loginUser);
 
+app.post("/sendEmail", userController.emailNotification);
+
+app.get("/sendEmail", userController.renderEmail);
+
 
 
 app.listen(port, () => {

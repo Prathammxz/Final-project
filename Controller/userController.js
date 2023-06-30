@@ -1,6 +1,7 @@
 const db = require("../Model/index");
 const User = db.user;
 const bcrypt = require("bcryptjs");
+const sendEmail = require("../Services/sendEmail");
 
 exports.index = async (req, res) => {
     const users = await db.user.findAll();
@@ -19,7 +20,7 @@ exports.createUser = async (req, res) => {
         password
     } = req.body
 
-    db.user.create({
+    const create = db.user.create({
         name: name,
         address: address,
         email: email,
@@ -27,6 +28,20 @@ exports.createUser = async (req, res) => {
         image: "http://localhost:4000/" + req.file.filename,
     });
 
+    if (create) {
+      try {
+        const message = "You have successfully been registered to Pratham's app.";
+  
+        await sendEmail({
+          to: req.body.email,
+          text: message,
+          subject: "Registration Successful",
+        });
+      } catch (e) {
+        console.log("error sending mail");
+        res.render("error");
+      }
+    }
     res.redirect("/login");
 };
 
@@ -36,31 +51,55 @@ exports.renderLogin = async (req, res) => {
 };
 
 exports.loginUser = async (req, res) => {
-    console.log(req.body)
-    const {
-      email,
-      password
-    } = req.body;
-    console.log(email, password);
-  
-  
+    const { email,password} = req.body;
     const foundUser = await db.user.findAll({
       where: {
         email: email,
       }
     });
   
-    if (foundUser.length == 0) { //checking if email exists
+    if (foundUser.length == 0) { 
       return res.redirect("/login");
     }
-  
-    console.log(foundUser[0].password);
-    console.log(bcrypt.compareSync(password, foundUser[0].password));
-  
     if (bcrypt.compareSync(password, foundUser[0].password)) {
-      res.redirect("/home");
+      res.redirect("/");
     } else {
       res.redirect("/login");
     }
   
   };
+
+
+exports.renderEmail = async (req, res) => {
+    res.render("notification");
+};
+    
+exports.emailNotification = async (req, res) => {
+  try {
+    const {
+      subject,
+      message
+    } = req.body
+    console.log(subject, message);
+
+    // finding email from database
+    const allUsers = await db.user.findAll({
+
+    });
+    allUsers.forEach(async (user) => {
+      await sendEmail({
+        to: user.email,
+        text: message,
+        subject: subject,
+      })
+
+    })
+
+    res.redirect("/login");
+  } catch {
+    console.log("error sending mail")
+    res.render("error")
+  };
+}; 
+//forgot and reset password to continue
+
