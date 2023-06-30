@@ -101,5 +101,6 @@ exports.emailNotification = async (req, res) => {
     res.render("error")
   };
 }; 
+
 //forgot and reset password to continue
 
