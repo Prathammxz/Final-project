@@ -4,76 +4,79 @@ const bcrypt = require("bcryptjs");
 const sendEmail = require("../Services/sendEmail");
 
 exports.index = async (req, res) => {
-    const users = await db.user.findAll();
-    res.render("index",);
+  const users = await db.user.findAll();
+  res.render("index", );
 };
 
 exports.renderUser = async (req, res) => {
-    res.render("createuser");
+  res.render("createuser");
 };
 
 exports.createUser = async (req, res) => {
-    const {
-        name,
-        address,
-        email,
-        password
-    } = req.body
+  const {
+    name,
+    address,
+    email,
+    password
+  } = req.body
 
-    const create = db.user.create({
-        name: name,
-        address: address,
-        email: email,
-        password: bcrypt.hashSync(password, 10),
-        image: "http://localhost:4000/" + req.file.filename,
-    });
+  const create = db.user.create({
+    name: name,
+    address: address,
+    email: email,
+    password: bcrypt.hashSync(password, 10),
+    image: "http://localhost:4000/" + req.file.filename,
+  });
 
-    if (create) {
-      try {
-        const message = "You have successfully been registered to Pratham's app.";
-  
-        await sendEmail({
-          to: req.body.email,
-          text: message,
-          subject: "Registration Successful",
-        });
-      } catch (e) {
-        console.log("error sending mail");
-        res.render("error");
-      }
+  if (create) {
+    try {
+      const message = "You have successfully been registered to Pratham's app.";
+
+      await sendEmail({
+        to: req.body.email,
+        text: message,
+        subject: "Registration Successful",
+      });
+    } catch (e) {
+      console.log("error sending mail");
+      res.render("error");
     }
-    res.redirect("/login");
+  }
+  res.redirect("/login");
 };
 
 exports.renderLogin = async (req, res) => {
 
-    res.render("login");
+  res.render("login");
 };
 
 exports.loginUser = async (req, res) => {
-    const { email,password} = req.body;
-    const foundUser = await db.user.findAll({
-      where: {
-        email: email,
-      }
-    });
-  
-    if (foundUser.length == 0) { 
-      return res.redirect("/login");
+  const {
+    email,
+    password
+  } = req.body;
+  const foundUser = await db.user.findAll({
+    where: {
+      email: email,
     }
-    if (bcrypt.compareSync(password, foundUser[0].password)) {
-      res.redirect("/");
-    } else {
-      res.redirect("/login");
-    }
-  
-  };
+  });
+
+  if (foundUser.length == 0) {
+    return res.redirect("/login");
+  }
+  if (bcrypt.compareSync(password, foundUser[0].password)) {
+    res.redirect("/");
+  } else {
+    res.redirect("/login");
+  }
+
+};
 
 
 exports.renderEmail = async (req, res) => {
-    res.render("notification");
+  res.render("notification");
 };
-    
+
 exports.emailNotification = async (req, res) => {
   try {
     const {
@@ -100,7 +103,76 @@ exports.emailNotification = async (req, res) => {
     console.log("error sending mail")
     res.render("error")
   };
-}; 
+};
 
 //forgot and reset password to continue
+exports.forgotPassword = async (req, res) => {
+  res.render("forgotpassword")
+};
 
+exports.verifyEmail = async (req, res) => {
+  const email = req.body.email
+  const isPresent = await User.findAll({
+    where: {
+      email: email,
+    }
+  });
+  if(isPresent.length ==0){
+    console.log("Email is not registered yet");
+    res.redirect("/forgotpassword");
+    return;  
+  }
+  else{
+    console.log("Email is registered");
+    try {
+      const OTP = Math.floor(100000 + Math.random() * 900000);
+      const message = "Your One Time Password is " + OTP + ".";
+
+      await sendEmail({
+        to: email,
+        text: message,
+        subject: "Reset Your Password",
+      });
+
+      isPresent[0].otp = OTP;
+      await isPresent[0].save();
+      res.render("resetPassword");
+    } catch (e) {
+      console.log("Error sending mail");
+      console.log(e.message);
+      res.render("error");
+    }
+  }
+};
+
+exports.renderResetPassword = (req, res) => {
+  res.render("resetpassword");
+};
+
+exports.resetPassword = async (req, res) => {
+  const {
+    otp,
+    newPassword
+  } = req.body;
+
+  const encPassword = bcrypt.hashSync(newPassword, 10)
+
+  const verifyOTP = await User.findAll({
+    where: {
+      otp: otp,
+    },
+  });
+
+  if (verifyOTP.length != 0) {
+    verifyOTP[0].password = encPassword
+    verifyOTP[0].otp = null
+    await verifyOTP[0].save()
+
+    console.log("Password Has been Updated Succesfully.")
+    res.redirect('/login')
+  } else {
+    console.log("Incorrect OTP");
+    res.redirect("/resetpassword");
+
+  }
+};

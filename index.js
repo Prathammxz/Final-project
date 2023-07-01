@@ -32,7 +32,13 @@ app.post("/sendEmail", userController.emailNotification);
 
 app.get("/sendEmail", userController.renderEmail);
 
+app.get("/forgotpassword", userController.forgotPassword);
 
+app.post("/verifyEmail", userController.verifyEmail);
+
+app.get("/resetpassword", userController.renderResetPassword);
+
+app.post("/resetpassword", userController.resetPassword);
 
 app.listen(port, () => {
     console.log("Node server started at port 4000");
