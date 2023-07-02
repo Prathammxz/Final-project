@@ -47,29 +47,28 @@ exports.createUser = async (req, res) => {
 
 exports.renderLogin = async (req, res) => {
 
-  res.render("login");
+  res.render("login",{ error: null });
 };
 
 exports.loginUser = async (req, res) => {
-  const {
-    email,
-    password
-  } = req.body;
-  const foundUser = await db.user.findAll({
+  const { email, password } = req.body;
+  const foundUser = await db.user.findOne({
     where: {
       email: email,
-    }
+    },
   });
 
-  if (foundUser.length == 0) {
-    return res.redirect("/login");
-  }
-  if (bcrypt.compareSync(password, foundUser[0].password)) {
-    res.redirect("/");
-  } else {
-    res.redirect("/login");
+  if (!foundUser) {
+    return res.render("login", { error: "Incorrect email" });
   }
 
+  const passwordMatch = bcrypt.compareSync(password, foundUser.password);
+
+  if (!passwordMatch) {
+    return res.render("login", { error: "Incorrect password" });
+  }
+
+  res.redirect("/");
 };
 
 
@@ -148,14 +147,9 @@ exports.verifyEmail = async (req, res) => {
 exports.renderResetPassword = (req, res) => {
   res.render("resetpassword");
 };
-
 exports.resetPassword = async (req, res) => {
-  const {
-    otp,
-    newPassword
-  } = req.body;
-
-  const encPassword = bcrypt.hashSync(newPassword, 10)
+  const { otp, newPassword } = req.body;
+  const encPassword = bcrypt.hashSync(newPassword, 10);
 
   const verifyOTP = await User.findAll({
     where: {
@@ -163,16 +157,26 @@ exports.resetPassword = async (req, res) => {
     },
   });
 
-  if (verifyOTP.length != 0) {
-    verifyOTP[0].password = encPassword
-    verifyOTP[0].otp = null
-    await verifyOTP[0].save()
+  if (verifyOTP.length !== 0) {
+    verifyOTP[0].password = encPassword;
+    verifyOTP[0].otp = null;
+    await verifyOTP[0].save();
 
-    console.log("Password Has been Updated Succesfully.")
-    res.redirect('/login')
+    // Send email to the user
+    const message = "Your password has been successfully changed.";
+    try {
+      await sendEmail({
+        to: verifyOTP[0].email,
+        text: message,
+        subject: "Password Changed",
+      });
+      console.log("Email sent to the user after changing the password.");
+    } catch (error) {
+      console.log("Error sending email:", error);
+    }
+    res.redirect('/login');
   } else {
     console.log("Incorrect OTP");
-    res.redirect("/resetpassword");
-
+    res.render("resetpassword", { error: "incorrect" });
   }
 };

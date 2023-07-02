@@ -12,7 +12,11 @@
     body {
       background: linear-gradient(to right, #73c8ff, #0086ff);
     }
-    
+
+    .error-text {
+      color: red;
+    }
+
     .center-align {
       display: flex;
       flex-direction: column;
@@ -55,6 +59,14 @@
   <form action="/login" method="POST" class="center-align">
     <div class="form-box">
       <h1 class="text-center">Login User</h1><br>
+
+      <div class="error-message">
+        <% if (error) { %>
+          <p class="error-text"><%= error %></p>
+        <% } %>
+      </div>
+      
+      
       <div class="form-field mb-3">
         <i class="fas fa-envelope"></i>
         <label for="email" class="form-label">Email:</label>
