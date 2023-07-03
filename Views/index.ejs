@@ -13,22 +13,24 @@
 
   <style>
     body {
-      background: linear-gradient(to right, #73c8ff, #0086ff);
+      background: linear-gradient(to right, #73fff6, #00b7ff);
       display: flex;
       align-items: center;
       justify-content: center;
       height: 100vh;
+      margin: 0;
     }
 
     .container-box {
-      max-width: 800px;
+      max-width: 1800px;
       padding: 20px;
       background-color: #f8f9fa;
       border-radius: 5px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       text-align: center;
       overflow-y: auto; 
-      height: 90vh; 
+      height: 65vh; 
+      margin-top: 60px;
     }
 
     .note-card {
@@ -52,6 +54,7 @@
   </style>
 </head>
 <body>
+  <%- include('navbar') %>
   <div class="container-box">
     <div class="container">
       <div class="text-center">

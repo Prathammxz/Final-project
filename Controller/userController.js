@@ -1,11 +1,13 @@
+
 const db = require("../Model/index");
 const User = db.user;
 const bcrypt = require("bcryptjs");
 const sendEmail = require("../Services/sendEmail");
 
+
 exports.index = async (req, res) => {
   const users = await db.user.findAll();
-  res.render("index", );
+  res.render("index");
 };
 
 exports.renderUser = async (req, res) => {
@@ -145,7 +147,7 @@ exports.verifyEmail = async (req, res) => {
 };
 
 exports.renderResetPassword = (req, res) => {
-  res.render("resetpassword");
+  res.render("resetpassword", { error: null });
 };
 exports.resetPassword = async (req, res) => {
   const { otp, newPassword } = req.body;
@@ -180,3 +182,5 @@ exports.resetPassword = async (req, res) => {
     res.render("resetpassword", { error: "incorrect" });
   }
 };
+
+

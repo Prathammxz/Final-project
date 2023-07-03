@@ -40,6 +40,7 @@ app.get("/resetpassword", userController.renderResetPassword);
 
 app.post("/resetpassword", userController.resetPassword);
 
+
 app.listen(port, () => {
     console.log("Node server started at port 4000");
   });
