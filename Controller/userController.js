@@ -1,4 +1,3 @@
-
 const db = require("../Model/index");
 const User = db.user;
 const bcrypt = require("bcryptjs");
