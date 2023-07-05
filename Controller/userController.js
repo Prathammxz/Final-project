@@ -2,12 +2,18 @@ const db = require("../Model/index");
 const User = db.user;
 const bcrypt = require("bcryptjs");
 const sendEmail = require("../Services/sendEmail");
+const jwt = require("jsonwebtoken")
 
 
 exports.index = async (req, res) => {
   const users = await db.user.findAll();
   res.render("index");
 };
+
+
+// exports.loginHome = async (req, res) => {
+//   res.render("loginhome");
+// };
 
 exports.renderUser = async (req, res) => {
   res.render("createuser");
@@ -58,18 +64,19 @@ exports.loginUser = async (req, res) => {
       email: email,
     },
   });
+    if (foundUser.length!=0){
+      if(bcrypt.compareSync(password,foundUser.password)){
+      var token=jwt.sign({id:foundUser.id},process.env.SECRET_KEY,{expiresIn:86400}) 
+      console.log(token)
+      res.cookie('token',token)
+      res.redirect("/index")
+      }
+      else{
+      console.log("Login failed.")
+      res.redirect("login")
+      }
+  } 
 
-  if (!foundUser) {
-    return res.render("login", { error: "Incorrect email" });
-  }
-
-  const passwordMatch = bcrypt.compareSync(password, foundUser.password);
-
-  if (!passwordMatch) {
-    return res.render("login", { error: "Incorrect password" });
-  }
-
-  res.redirect("/");
 };
 
 

@@ -30,4 +30,8 @@ db.sequelize = sequelize;
 db.user = require("./userModel.js")(sequelize, DataTypes);
 db.blog = require("./blogModel.js")(sequelize, DataTypes);
 
+//relation between tables
+db.user.hasMany(db.blog);
+db.blog.belongsTo(db.user);
+
 module.exports = db;

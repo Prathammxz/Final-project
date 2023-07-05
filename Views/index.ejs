@@ -1,86 +1,60 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Posts</title>
-  <!-- Bootstrap CSS -->
+  <title>Home</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-
-  <!-- Font Awesome CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
   <style>
+    /* Custom CSS to center align the form elements */
     body {
       background: linear-gradient(to right, #73fff6, #00b7ff);
+    }
+
+    .center-align {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
-      margin: 0;
     }
 
-    .container-box {
-      max-width: 1800px;
-      padding: 20px;
-      background-color: #f8f9fa;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      text-align: center;
-      overflow-y: auto; 
-      height: 65vh; 
-      margin-top: 60px;
+    .logo {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 25px;
+      color: #333;
     }
 
-    .note-card {
-      margin-bottom: 20px;
-      margin-right: 10px;
-      margin-left: 10px;
+    .btn-group {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 10px;
     }
 
-    .row-cols-2 {
-      flex-wrap: wrap;
+    .btn-login,
+    .btn-register {
+      margin-left: 5px;
     }
 
-    .text-center {
-      text-align: center;
-    }
-
-    /* .button-container {
-      text-align: left;
-      margin-top: 20px;
-    } */
   </style>
 </head>
+
 <body>
-  <%- include('navbar') %>
-  <div class="container-box">
-    <div class="container">
-      <div class="text-center">
-        <h1>Dummy index</h1>
-      </div>
-      <div class="row row-cols-2">
-        <% for (let i = 0; i < 6; i++) { %>
-          <div class="col mb-3">
-            <div class="card note-card">
-              <div class="card-body">
-                <h5 class="card-title"><b>Title:</b> Dummy Title <%= i + 1 %></h5> 
-                <p class="card-text"><b>Description:</b> Dummy Description <%= i + 1 %></p> 
-                <p class="card-text"><b>Written by:</b> Dummy Author</p> 
-                <p class="card-text"><b>Created at:</b> Dummy Date</p> 
-                <a href="#">See more</a>
-              </div>
-            </div>
-          </div>
-        <% } %>
-      </div>
+  <span class="logo">Logo</span>
+
+  <div class="center-align">
+    <h1>Welcome to the Home Page</h1>
+
+    <div class="btn-group">
+      <a href="/login" class="btn btn-primary btn-login">Login</a>
+      <a href="/createuser" class="btn btn-primary btn-register">Register</a>
     </div>
   </div>
 
-  <!-- Font Awesome JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
