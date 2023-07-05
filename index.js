@@ -7,10 +7,10 @@ const ejs= require("ejs");
 const userController = require ("./Controller/userController");
 const blogController= require("./Controller/blogController");
 //for user
-const{storage,multer, blogStorage}=require('./Services/multerConfig');
+const{storage,multer, blogStorage}=require('./Services/multerConfig');// when you add new folder for image, pass its var from multerConfig here.
 const upload=multer({storage:storage});
 //for blogs
-const uploads=multer({storage:blogStorage});
+const uploads=multer({storage:blogStorage});    //to add in new folder,--> const name: ({storage: var name from multerConfig })
 
 const dotenv = require('dotenv'); //JWT
 const authController=require('./Middleware/isAuthenticated');
@@ -21,32 +21,34 @@ app.set("view engine","ejs");
 require("./Config/dbConfig");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname,'Uploads')));
+app.use(express.static(path.join(__dirname, 'Uploads/Users')));//here you must provide the path of image so that image can be displayed directly from http://localhost ..... and alo ffrom FE
+app.use( express.static(path.join(__dirname, 'Uploads/blogImage')));
+
 
 db.sequelize.sync({force:false});
 
-app.get("/", userController.index);
+app.get("/", userController.index); //index page
 app.get("/index", userController.index);
 
-// app.get("/loginhome", userController.loginHome);
 
-app.get("/createuser", userController.renderUser);
+app.get("/createuser", userController.renderUser);// create user
 app.post("/createuser", upload.single("image"), userController.createUser);
 
-app.get("/login", userController.renderLogin);
+app.get("/login", userController.renderLogin);//login 
 app.post("/login", userController.loginUser);
 
-app.post("/sendEmail", userController.emailNotification);
+app.post("/sendEmail", userController.emailNotification);//send mass mail
 app.get("/sendEmail", userController.renderEmail);
 
-app.get("/forgotpassword", userController.forgotPassword);
+app.get("/forgotpassword", userController.forgotPassword);//forgot password and reset password
 app.post("/verifyEmail", userController.verifyEmail);
 app.get("/resetpassword", userController.renderResetPassword);
 app.post("/resetpassword", userController.resetPassword);
 
-app.get("/createblog", blogController.renderCreateBlog);
+app.get("/createblog", blogController.renderCreateBlog);// create blog
 app.post("/createblog", uploads.single("image"), blogController.createBlog)
-app.get("/blog", blogController.blog);
+
+app.get("/blog", blogController.blog);//display blogs
 
 
 app.listen(process.env.PORT, () => {
