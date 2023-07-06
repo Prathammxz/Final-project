@@ -1,9 +1,20 @@
 const jwt=require("jsonwebtoken")
 const{promisify}=require("util")
+const { user } = require("../Model")
 
-exports.isAuthenticated=async (req,res)=>{
-    const token=req.cookies.token
-    console.log(token)
+exports.isAuthenticated=async (req,res, next)=>{
+    const token=req.cookies.token;
+    if(!token){
+        res.redirect("/")
+        return
+    }
     const decoded=await promisify(jwt.verify)(token,process.env.SECRET_KEY)
-    console.log(decoded)
+
+    const loggedInUser = await user.findOne({ where: { id: decoded.id } }); //checcking if the token is matched to the user id's token
+    if (!loggedInUser) {
+      res.render("/")
+      }else{
+        req.user = loggedInUser;
+        next();     //allowing when cookie/token is okay
+    }
 }

@@ -3,7 +3,6 @@ const Blog = db.blog;
 
 exports.blog = async (req, res) => {
     const blogs = await db.blog.findAll();
-    console.log(blogs);
     res.render("blog", {blogs});
 };
 
@@ -21,6 +20,7 @@ exports.createBlog = async (req, res) => {
         title: title,
         description: description,
         image: "http://localhost:4000/" + req.file.filename,
+        userId: req.user.id             //passing the user id
     });
 
     res.redirect("/blog");

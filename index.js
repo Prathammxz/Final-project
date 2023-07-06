@@ -15,9 +15,8 @@ const uploads=multer({storage:blogStorage});    //to add in new folder,--> const
 const dotenv = require('dotenv'); //JWT
 const authController=require('./Middleware/isAuthenticated');
 dotenv.config()
+app.use(require("cookie-parser")());
 app.set("view engine","ejs");
-
-
 require("./Config/dbConfig");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -36,6 +35,7 @@ app.post("/createuser", upload.single("image"), userController.createUser);
 
 app.get("/login", userController.renderLogin);//login 
 app.post("/login", userController.loginUser);
+app.get("/logout", userController.logoutUser)
 
 app.post("/sendEmail", userController.emailNotification);//send mass mail
 app.get("/sendEmail", userController.renderEmail);
@@ -46,7 +46,7 @@ app.get("/resetpassword", userController.renderResetPassword);
 app.post("/resetpassword", userController.resetPassword);
 
 app.get("/createblog", blogController.renderCreateBlog);// create blog
-app.post("/createblog", uploads.single("image"), blogController.createBlog)
+app.post("/createblog", authController.isAuthenticated, uploads.single("image"), blogController.createBlog)
 
 app.get("/blog", blogController.blog);//display blogs
 

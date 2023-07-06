@@ -69,7 +69,7 @@ exports.loginUser = async (req, res) => {
       var token=jwt.sign({id:foundUser.id},process.env.SECRET_KEY,{expiresIn:86400}) 
       console.log(token)
       res.cookie('token',token)
-      res.redirect("/index")
+      res.redirect("/blog")
       }
       else{
       console.log("Login failed.")
@@ -188,5 +188,10 @@ exports.resetPassword = async (req, res) => {
     res.render("resetpassword", { error: "incorrect" });
   }
 };
+
+exports.logoutUser = async(req,res) =>{
+      res.clearCookie("token")
+      res.redirect("/login")
+}
 
 
