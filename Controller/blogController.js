@@ -26,4 +26,13 @@ exports.createBlog = async (req, res) => {
     res.redirect("/blog");
 };
 
+exports.showMyBlogs = async(req, res)=>{
+    const myBlogs= await db.blog.findAll({
+        where:{
+            userId:req.user.id
+        }
+    })
+        res.render("myblogs", {myBlogs: myBlogs})
+}
+
 

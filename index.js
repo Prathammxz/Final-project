@@ -49,6 +49,7 @@ app.get("/createblog", blogController.renderCreateBlog);// create blog
 app.post("/createblog", authController.isAuthenticated, uploads.single("image"), blogController.createBlog)
 
 app.get("/blog", blogController.blog);//display blogs
+app.get("/myBlogs", authController.isAuthenticated, blogController.showMyBlogs);
 
 
 app.listen(process.env.PORT, () => {
