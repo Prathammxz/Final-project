@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Blog</title>
+  <!-- Add Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <!-- Add Font Awesome CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    body {
+      background: linear-gradient(to right, #73fff6, #00b7ff);
+      padding: 20px;
+    }
+
+    .center-align {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 120px;
+    }
+
+    .form-box {
+      max-width: 500px;
+      width: 100%;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .form-box h1 {
+      margin-bottom: 30px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .form-field {
+      position: relative;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .form-field .form-control {
+      width: 100%;
+     
+    }
+
+    .description-field {
+      height: 100px;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <%- include('navbarloggedin') %>
+
+  <div class="center-align">
+    <div class="form-box">
+      <h1 class="text-center">Edit Blog</h1>
+      <form action="/updateblog/<%- blog.id %>" method="post" enctype="multipart/form-data">
+
+        <div class="form-field mb-3">
+          <i class="fas fa-language"></i>
+          <label for="title" class="form-label">Title:</label>
+          <input type="text" class="form-control" name="title" value="<%- blog.title %>">
+        </div>
+
+        <div class="form-field mb-3">
+          <i class="fas fa-file-alt"></i>
+          <label for="description" class="form-label">Description:</label>
+          <textarea type="text" class="form-control description-field" name="description" value="<%=blog.description%>"><%=blog.description%></textarea>
+        </div>
+
+        <div class="form-field mb-3">
+          <i class="fas fa-image"></i>
+          <label for="image" class="form-label">Image:</label>
+          <input type="file" class="form-control" name="image" onchange="preview()">
+          <div class="image-preview" style="width: 40%; padding: 5px;">
+            <img src="<%- blog.image %>" id="frame" alt="No preview" style="max-width:100%">
+          </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-check"></i> Edit
+        </button>
+
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function preview() {
+      frame.src=URL.createObjectURL(event.target.files[0]);
+  }
+  </script>
+
+  <!-- Add Font Awesome JS -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+</body>
+
+</html>

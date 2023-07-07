@@ -51,6 +51,12 @@ app.post("/createblog", authController.isAuthenticated, uploads.single("image"),
 app.get("/blog", blogController.blog);//display blogs
 app.get("/myBlogs", authController.isAuthenticated, blogController.showMyBlogs);
 
+app.get("/single/:id", authController.isAuthenticated,blogController.singleBlog);
+
+app.get("/edit/:id", authController.isAuthenticated, blogController.editBlog);
+app.post("/updateblog/:id", authController.isAuthenticated, upload.single('image'), blogController.updateBlog);
+
+app.get("/delete/:id", authController.isAuthenticated,blogController.deleteBlog)
 
 app.listen(process.env.PORT, () => {
     console.log("Node server started at port 4000");
