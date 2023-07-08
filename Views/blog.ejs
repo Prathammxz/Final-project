@@ -76,6 +76,15 @@
   <%- include('navbarloggedin') %>
 
   <div class="container">
+    <% if (message && message.length > 0) { %>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <% message.forEach(msg => { %>
+          <p><%= msg %></p>
+        <% }) %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% } %>
+    
     <h1>Blogs</h1>
     <% blogs.forEach(blog=>{ %>
     <div class="blog-post card">

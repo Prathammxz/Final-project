@@ -1,6 +1,7 @@
 const jwt=require("jsonwebtoken")
 const{promisify}=require("util")
 const { user } = require("../Model")
+const flash = require('connect-flash'); 
 
 exports.isAuthenticated=async (req,res, next)=>{
     const token=req.cookies.token;
@@ -15,6 +16,13 @@ exports.isAuthenticated=async (req,res, next)=>{
       res.render("/")
       }else{
         req.user = loggedInUser;
+
+        
+        if(req.session.flashMessage){
+            res.locals.flashMessage=req.session.flashMessage
+            req.session.flashMessage=null
+        }
+        
         next();     //allowing when cookie/token is okay
     }
 }

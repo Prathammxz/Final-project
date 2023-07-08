@@ -52,11 +52,63 @@
       justify-content: center;
     }
 
+    /* Additional CSS for Navbar */
+    .navbar {
+      background-color: #fff;
+      padding: 10px;
+    }
+
+    .navbar .nav-item {
+      margin-right: 10px;
+    }
+
+    .navbar .nav-item a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .navbar .nav-item a:hover {
+      color: #42c7ce;
+    }
+
+    .navbar .nav-item.active a {
+      color: #42c7ce;
+    }
+
+    /* Additional CSS for active page in Navbar */
+    .navbar .nav-item.active a {
+      color: #42c7ce;
+    }
+
+    .navbar .nav-item.active a i {
+      color: #42c7ce;
+    }
   </style>
 </head>
 
 <body>
-  <%- include('navbar') %>
+  <nav class="navbar">
+    <ul class="nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/">
+          <i class="fas fa-home"></i> Home
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="/createuser">
+          <i class="fas fa-user-plus"></i> Register
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/login">
+          <i class="fas fa-sign-in-alt"></i> Login
+        </a>
+      </li>
+    </ul>
+  </nav>
+  
   <form action="/login" method="POST" class="center-align">
     <div class="form-box">
       <h1 class="text-center">Login User</h1><br>
@@ -83,6 +135,9 @@
       
     </div>
   </form>
+
+  <!-- Add Font Awesome JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 </body>
 
 </html>

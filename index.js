@@ -3,26 +3,39 @@ const path=require("path");
 const app = express();
 const port = 4000;
 const db= require("./Model/index");
+require("./Config/dbConfig");
 const ejs= require("ejs");
 const userController = require ("./Controller/userController");
 const blogController= require("./Controller/blogController");
+const session=require('express-session')
+const flash=require('connect-flash')
+
 //for user
 const{storage,multer, blogStorage}=require('./Services/multerConfig');// when you add new folder for image, pass its var from multerConfig here.
 const upload=multer({storage:storage});
+
 //for blogs
 const uploads=multer({storage:blogStorage});    //to add in new folder,--> const name: ({storage: var name from multerConfig })
 
 const dotenv = require('dotenv'); //JWT
 const authController=require('./Middleware/isAuthenticated');
 dotenv.config()
+
 app.use(require("cookie-parser")());
+
 app.set("view engine","ejs");
-require("./Config/dbConfig");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'Uploads/Users')));//here you must provide the path of image so that image can be displayed directly from http://localhost ..... and alo ffrom FE
 app.use( express.static(path.join(__dirname, 'Uploads/blogImage')));
+app.use(session({
+  secret : 'mySession',
+  cookie: { maxAge: 60000 },
+  resave: false,
+  saveUninitialized: true
+}));
 
+app.use(flash());//flash
 
 db.sequelize.sync({force:false});
 
@@ -35,7 +48,7 @@ app.post("/createuser", upload.single("image"), userController.createUser);
 
 app.get("/login", userController.renderLogin);//login 
 app.post("/login", userController.loginUser);
-app.get("/logout", userController.logoutUser)
+app.get("/logout", userController.logoutUser);//logout
 
 app.post("/sendEmail", userController.emailNotification);//send mass mail
 app.get("/sendEmail", userController.renderEmail);
@@ -51,12 +64,13 @@ app.post("/createblog", authController.isAuthenticated, uploads.single("image"),
 app.get("/blog", blogController.blog);//display blogs
 app.get("/myBlogs", authController.isAuthenticated, blogController.showMyBlogs);
 
-app.get("/single/:id", authController.isAuthenticated,blogController.singleBlog);
+app.get("/single/:id", authController.isAuthenticated,blogController.singleBlog);//single blog
 
-app.get("/edit/:id", authController.isAuthenticated, blogController.editBlog);
+app.get("/edit/:id", authController.isAuthenticated, blogController.editBlog);//edit blog
 app.post("/updateblog/:id", authController.isAuthenticated, upload.single('image'), blogController.updateBlog);
 
-app.get("/delete/:id", authController.isAuthenticated,blogController.deleteBlog)
+app.get("/delete/:id", authController.isAuthenticated, blogController.deleteBlog);//delete blog
+
 
 app.listen(process.env.PORT, () => {
     console.log("Node server started at port 4000");

@@ -13,11 +13,10 @@
       background: linear-gradient(to right, #73fff6, #00b7ff);
     }
 
-    .center-align {
+    .container {
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
       height: 100vh;
     }
 
@@ -29,15 +28,41 @@
       color: #333;
     }
 
+    .left-side {
+      flex-basis: 60%;
+    }
+
+    .right-side {
+      flex-basis: 40%;
+    }
+
     .btn-group {
       display: flex;
-      justify-content: flex-end;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-end;
       margin-top: 10px;
     }
 
     .btn-login,
     .btn-register {
-      margin-left: 5px;
+      margin-bottom: 5px;
+      padding: 15px 25px;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    width: 70%;
+    }
+
+    .btn-register {
+      background-color: rgb(18, 166, 18);
+      color: #fff;
+    }
+
+    .btn-login i,
+    .btn-register i {
+      margin-right: 10px;
     }
 
   </style>
@@ -45,12 +70,22 @@
 
 <body>
 
-  <div class="center-align">
-    <h1>Welcome to the "SOCH" a blog management System</h1>
+  <div class="container">
+    <div class="left-side">
+      <h1>Welcome to the "SOCH" a blog management System</h1>
+    </div>
 
-    <div class="btn-group">
-      <a href="/login" class="btn btn-primary btn-login">Login</a>
-      <a href="/createuser" class="btn btn-primary btn-register">Register</a>
+    <div class="right-side">
+      <div class="btn-group">
+        <a href="/createuser" class="btn btn-primary btn-register">
+          <i class="fas fa-user-plus"></i> Register
+        </a>
+      </div>
+      <div class="btn-group">
+        <a href="/login" class="btn btn-primary btn-login">
+          <i class="fas fa-sign-in-alt"></i> Login
+        </a>
+      </div>
     </div>
   </div>
 

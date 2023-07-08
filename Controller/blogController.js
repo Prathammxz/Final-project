@@ -2,9 +2,11 @@ const db = require("../Model/index");
 const Blog = db.blog;
 
 exports.blog = async (req, res) => {
+    const message = req.flash("success"); 
     const blogs = await db.blog.findAll();
-    res.render("blog", {blogs});
-};
+    res.render("blog", { blogs, message});
+  };
+  
 
 exports.renderCreateBlog= async (req,res)=>{
     res.render("createblog");

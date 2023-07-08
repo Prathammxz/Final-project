@@ -1,46 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Navbar</title>
   <style>
-  .bg-custom {
-    background-color: #093c76; 
-  }
-  
-  .navbar-brand {
-    font-size: 20px;
-    font-family: Arial, sans-serif; 
-  }
-  
-  .navbar-nav .nav-link {
-    font-size: 16px; 
-    font-family: Arial, sans-serif; 
-    color: #333; 
-  }
+    
+    .navbar {
+      background-color: #00b7ff; /* Change the color to your desired value */
+    }
+    
+    .navbar-brand {
+      font-size: 24px;
+      font-family: Arial, sans-serif;
+    }
 
-  .nav-item button {
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-  }
+    .navbar-nav .nav-link {
+      font-size: 18px;
+      font-family: Arial, sans-serif;
+      color: #333;
+    }
 
-  .nav-item button:hover {
-    color: #42c7ce;
-  }
+    .nav-item button {
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
 
-  .nav-icon {
-    font-size: 20px;
-    margin-right: 5px;
-  }
-</style>
+    .nav-icon {
+      font-size: 20px;
+      margin-right: 5px;
+    }
+
+    /* Additional CSS for Navbar */
+    .navbar .nav-item a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      transition: color 0.3s;
+      font-size: 18px;
+      font-family: Arial, sans-serif;
+    }
+
+    .navbar .nav-item a:hover {
+      color: #73d90d;
+    }
+
+   
+  </style>
 </head>
+
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container-fluid">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
@@ -66,7 +82,7 @@
             </a>
           </li>
         </ul>
-        
+
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <a class="nav-link" href="/logout">
@@ -85,4 +101,5 @@
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

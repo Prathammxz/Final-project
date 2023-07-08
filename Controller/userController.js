@@ -11,10 +11,6 @@ exports.index = async (req, res) => {
 };
 
 
-// exports.loginHome = async (req, res) => {
-//   res.render("loginhome");
-// };
-
 exports.renderUser = async (req, res) => {
   res.render("createuser");
 };
@@ -64,20 +60,24 @@ exports.loginUser = async (req, res) => {
       email: email,
     },
   });
-    if (foundUser.length!=0){
-      if(bcrypt.compareSync(password,foundUser.password)){
-      var token=jwt.sign({id:foundUser.id},process.env.SECRET_KEY,{expiresIn:86400}) 
-      console.log(token)
-      res.cookie('token',token)
-      res.redirect("/blog")
-      }
-      else{
-      console.log("Login failed.")
-      res.redirect("login")
-      }
-  } 
 
+  if (foundUser) {
+    if (bcrypt.compareSync(password, foundUser.password)) {
+      var token = jwt.sign({ id: foundUser.id }, process.env.SECRET_KEY, { expiresIn: 86400 });
+      console.log(token);
+      res.cookie('token', token);
+      req.flash("success", "Hello " + foundUser.name + ", You have successfully logged in!");
+      res.redirect("/blog");
+    } else {
+      console.log("Login failed.");
+      res.redirect("/login");
+    }
+  } else {
+    console.log("User not found.");
+    res.redirect("/login");
+  }
 };
+
 
 
 exports.renderEmail = async (req, res) => {
