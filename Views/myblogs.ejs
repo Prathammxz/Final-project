@@ -73,9 +73,11 @@
 </head>
 
 <body>
-  <%- include('navbarloggedin') %>
+  <%- include('extras/navbarloggedin') %>
 
   <div class="container">
+    <%- include('extras/flash') %>
+
     <h1>My Blogs</h1>
     <% myBlogs.forEach(blog => { %>
     <div class="blog-post card">

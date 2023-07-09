@@ -66,9 +66,11 @@
 </head>
 
 <body>
-  <%- include('navbarloggedin') %>
+  <%- include('extras/navbarloggedin') %>
 
   <div class="center-align">
+    <%- include('extras/flash') %>
+
     <div class="form-box">
       <h1 class="text-center">Create Blog</h1>
       <form action="/createblog" method="post" enctype="multipart/form-data">

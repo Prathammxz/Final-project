@@ -1,5 +1,6 @@
 const express = require("express");
 const path=require("path");
+const moment=require("moment");
 const app = express();
 const port = 4000;
 const db= require("./Model/index");
@@ -19,6 +20,7 @@ const uploads=multer({storage:blogStorage});    //to add in new folder,--> const
 
 const dotenv = require('dotenv'); //JWT
 const authController=require('./Middleware/isAuthenticated');
+const catchAsync = require("./Services/catchAsync");
 dotenv.config()
 
 app.use(require("cookie-parser")());
@@ -28,6 +30,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'Uploads/Users')));//here you must provide the path of image so that image can be displayed directly from http://localhost ..... and alo ffrom FE
 app.use( express.static(path.join(__dirname, 'Uploads/blogImage')));
+// app.locals.moment = moment();
 app.use(session({
   secret : 'mySession',
   cookie: { maxAge: 60000 },
@@ -50,7 +53,7 @@ app.get("/login", userController.renderLogin);//login
 app.post("/login", userController.loginUser);
 app.get("/logout", userController.logoutUser);//logout
 
-app.post("/sendEmail", userController.emailNotification);//send mass mail
+app.post("/sendEmail",catchAsync(userController.emailNotification));//send mass mail
 app.get("/sendEmail", userController.renderEmail);
 
 app.get("/forgotpassword", userController.forgotPassword);//forgot password and reset password
@@ -61,8 +64,8 @@ app.post("/resetpassword", userController.resetPassword);
 app.get("/createblog", blogController.renderCreateBlog);// create blog
 app.post("/createblog", authController.isAuthenticated, uploads.single("image"), blogController.createBlog)
 
-app.get("/blog", blogController.blog);//display blogs
-app.get("/myBlogs", authController.isAuthenticated, blogController.showMyBlogs);
+app.get("/blog", catchAsync(blogController.blog));//display blogs
+app.get("/myBlogs", authController.isAuthenticated,catchAsync(blogController.showMyBlogs));
 
 app.get("/single/:id", authController.isAuthenticated,blogController.singleBlog);//single blog
 

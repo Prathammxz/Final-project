@@ -50,7 +50,7 @@ exports.createUser = async (req, res) => {
 
 exports.renderLogin = async (req, res) => {
 
-  res.render("login",{ error: null });
+  res.render("login", { success: req.flash("success") });
 };
 
 exports.loginUser = async (req, res) => {
@@ -66,7 +66,7 @@ exports.loginUser = async (req, res) => {
       var token = jwt.sign({ id: foundUser.id }, process.env.SECRET_KEY, { expiresIn: 86400 });
       console.log(token);
       res.cookie('token', token);
-      req.flash("success", "Hello " + foundUser.name + ", You have successfully logged in!");
+      req.flash("success", ["Hello " + foundUser.name + ", You have successfully logged in!"]);
       res.redirect("/blog");
     } else {
       console.log("Login failed.");
@@ -190,8 +190,9 @@ exports.resetPassword = async (req, res) => {
 };
 
 exports.logoutUser = async(req,res) =>{
-      res.clearCookie("token")
-      res.redirect("/login")
+    req.flash("success", "You have been logged out!");
+    res.clearCookie("token")
+    res.redirect("/login")
 }
 
 

@@ -16,13 +16,6 @@ exports.isAuthenticated=async (req,res, next)=>{
       res.render("/")
       }else{
         req.user = loggedInUser;
-
-        
-        if(req.session.flashMessage){
-            res.locals.flashMessage=req.session.flashMessage
-            req.session.flashMessage=null
-        }
-        
         next();     //allowing when cookie/token is okay
     }
 }
