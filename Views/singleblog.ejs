@@ -6,8 +6,50 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
   <style>
     body {
+      background: linear-gradient(to right, #73fff6, #00b7ff);
       padding: 20px;
-      background-color: #73fff6;
+    }
+
+    .navbar {
+      font-family: Arial, sans-serif;
+    }
+
+    .navbar-brand {
+      font-size: 24px;
+      color: #f6f6f6;
+      font-weight: bold;
+    }
+
+    .navbar-nav .nav-link {
+      font-size: 18px;
+      color: #333;
+    }
+
+    .nav-item button {
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .nav-icon {
+      font-size: 20px;
+      margin-right: 5px;
+    }
+
+    /* Additional CSS for Navbar */
+    .navbar .nav-item a {
+      text-decoration: none;
+      color: #000000;
+      font-weight: bold;
+      transition: color 0.3s;
+      font-size: 18px;
+      font-family: Arial, sans-serif;
+    }
+
+    .navbar .nav-item a:hover {
+    color: #005884;
+
     }
 
     .container {
@@ -15,9 +57,9 @@
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;
-      margin-top: 40px;
-      width: 70vw;
-      height: 95vh;
+      margin-top: 60px;
+      width: 60vw;
+      height: 85vh;
       background-color: #fff;
       padding: 10px;
       border-radius: 10px;
@@ -25,7 +67,7 @@
     }
 
     .container h1 {
-      margin-top: 0;
+      margin-top: 90px;
       font-size: 40px;
       font-weight: bold;
     }
@@ -77,26 +119,38 @@
       color: #fff;
     }
 
-    
   </style>
 </head>
 <body>
-  <nav class="navbar">
-    <ul class="nav">
-      <li class="nav-item">
-        <a class="nav-link" href="/myblogs">
-          <i class="fas fa-eye"></i> My Blogs
-        </a>
-      </li>
+
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/myblogs">
+              <i class="fas fa-eye nav-icon"></i>
+              My Blogs
+            </a>
+          </li>
+          </ul>
+          </div>
   </nav>
+  
+  <!-- blogs -->
   <div class="container">
     <div class="blog-post card">
-      <img class="blog-image card-img-top" src=<%- blog.image %> alt="Image 1">
+      <img class="blog-image card-img-top" src="<%- blog.image %>" alt="Image 1">
       <div class="card-body">
         <h2 class="blog-title card-title"><%- blog.title %></h2>
         <p class="blog-description card-text"><%- blog.description %></p>
-        <p class="date"> Created at: <%- blog.createdAt %> </p>
-        <p class="date"> Updated at: <%- blog.updatedAt %> </p>
+        <p>Created at: <%- moment(blog.createdAt).format('MMMM Do YYYY, h:mm:ss a') %>  </p>
+        <p>Updated at: <%- moment(blog.updatedAt).format('MMMM Do YYYY, h:mm:ss a') %> </p>  
         <a class="btn btn-primary edit-button" href="/edit/<%- blog.id %>">
           <i class="fas fa-edit"></i> Edit
         </a>

@@ -7,12 +7,12 @@ const jwt = require("jsonwebtoken")
 
 exports.index = async (req, res) => {
   const users = await db.user.findAll();
-  res.render("index");
+  res.render("index", {activePage: "index" });
 };
 
 
 exports.renderUser = async (req, res) => {
-  res.render("createuser");
+  res.render("createuser",{activePage: "createuser" });
 };
 
 exports.createUser = async (req, res) => {
@@ -50,7 +50,7 @@ exports.createUser = async (req, res) => {
 
 exports.renderLogin = async (req, res) => {
 
-  res.render("login", { success: req.flash("success") });
+  res.render("login", { success: req.flash("success"), activePage: "login"  });
 };
 
 exports.loginUser = async (req, res) => {

@@ -14,19 +14,21 @@ exports.blog = async (req, res) => {
     // }
     // );
 
-    const blogs = await db.sequelize.query(` SELECT blogs.*, users.name AS authorName FROM blogs JOIN users ON blogs.userId = users.id`, 
+    const blogs = await db.sequelize.query(`SELECT blogs.*, users.name AS authorName FROM blogs JOIN users ON blogs.userId = users.id`, 
       { type: QueryTypes.SELECT}
       );
 
     // console.log(blogs)
-    res.render("blog", { blogs, success: message, moment: moment });
-  };
-  
-
-exports.renderCreateBlog = async (req, res) => {
-  res.render("createblog",  { success: req.flash("success") });
+    res.render("blog", { blogs, success: message, moment: moment, activePage: 'blogs' });
 };
 
+  
+//render created blog
+exports.renderCreateBlog = async (req, res) => {
+  res.render("createblog", { success: req.flash("success"), activePage: "createblog" });
+};
+
+//C-->Create
 exports.createBlog = async (req, res) => {
   const { title, description } = req.body;
 
@@ -41,27 +43,30 @@ exports.createBlog = async (req, res) => {
   res.redirect("/blog");
 };
 
+
+// R--> Read the blog by the current user
 exports.showMyBlogs = async (req, res) => {
     const myBlogs = await db.blog.findAll({
       where: {
         userId: req.user.id,
       },
     });
-    res.render("myblogs", { myBlogs, success: req.flash("success") });
-  };
+    res.render("myblogs", { myBlogs, success: req.flash("success"), moment: moment , activePage: "myBlogs" });
+};
   
 
+//  Single Blog of the user
 exports.singleBlog = async (req, res) => {
   const blog = await Blog.findAll({
     where: {
       id: req.params.id,
     },
   });
-  res.render("singleblog", {
-    blog: blog[0],
-  });
+  res.render("singleblog", {blog: blog[0], moment: moment});
 };
 
+
+//U--> Update the Blog
 exports.editBlog = async (req, res) => {
   const blog = await Blog.findAll({
     where: {
@@ -92,6 +97,8 @@ exports.updateBlog = async (req, res) => {
   res.redirect("/myblogs");
 };
 
+
+// D--> Delete the Blog
 exports.deleteBlog = async (req, res) => {
   const blog = await Blog.destroy({
     where: {
@@ -101,4 +108,9 @@ exports.deleteBlog = async (req, res) => {
 
   req.flash("success", "Blog deleted successfully!");
   res.redirect("/myblogs");
+};
+
+//Add comment to the blogs
+exports.AddComment = async(req, res)=>{
+
 };

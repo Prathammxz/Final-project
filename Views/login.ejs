@@ -13,10 +13,6 @@
       background: linear-gradient(to right, #73fff6, #00b7ff);
     }
 
-    .error-text {
-      color: red;
-    }
-
     .center-align {
       display: flex;
       flex-direction: column;
@@ -50,11 +46,29 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 300px;
+    }
+    .line-between {
+      width: 100%;
+      height: 1px;
+      background-color: #bab9b9;
+      margin: 10px 0;
     }
 
+    .not-registered-button {
+      background-color: transparent;
+      border: none;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: underline;
+      padding: 0;
+      margin: 0;
+    }
+    
     /* Additional CSS for Navbar */
     .navbar {
-      background-color: #fff;
+      background-color: #185899;
       padding: 10px;
     }
 
@@ -64,27 +78,20 @@
 
     .navbar .nav-item a {
       text-decoration: none;
-      color: #333;
+      color: #fffcfc;
       font-weight: bold;
       transition: color 0.3s;
     }
 
     .navbar .nav-item a:hover {
-      color: #42c7ce;
+      color: #12c59e;
     }
 
-    .navbar .nav-item.active a {
-      color: #42c7ce;
+    .navbar .nav-item a.active {
+      color: #000000 !important;
     }
 
-    /* Additional CSS for active page in Navbar */
-    .navbar .nav-item.active a {
-      color: #42c7ce;
-    }
-
-    .navbar .nav-item.active a i {
-      color: #42c7ce;
-    }
+    
   </style>
 </head>
 
@@ -92,17 +99,17 @@
   <nav class="navbar">
     <ul class="nav">
       <li class="nav-item">
-        <a class="nav-link" href="/">
+        <a class="nav-link <%- activePage === 'index' ? 'active' : '' %>" href="/">
           <i class="fas fa-home"></i> Home
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="/createuser">
+        <a class="nav-link <%- activePage === 'createuser' ? 'active' : '' %>" href="/createuser">
           <i class="fas fa-user-plus"></i> Register
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/login">
+        <a class="nav-link <%- activePage === 'login' ? 'active' : '' %>" href="/login">
           <i class="fas fa-sign-in-alt"></i> Login
         </a>
       </li>
@@ -123,15 +130,19 @@
         <i class="fas fa-lock"></i>
         <label for="password" class="form-label">Password:</label>
         <input type="password" class="form-control" name="password" required>
-      </div>
-
-      <a href="/forgotPassword">Forgot Password?</a>
-
+      
       <button type="submit" class="btn btn-primary mt-3">
         <span class="mr-2">Login <i class="fas fa-sign-in-alt"></i></span> 
       </button>
+      </div>
+      
+      <div class="mb-3">
+        <a href="/forgotPassword">Forgot Password?</a>
+      </div>
+      
+      <div class="line-between"></div>
 
-      <a href="/createuser">Not Registered?</a>
+      <button type="button" class="btn btn-link not-registered-button" onclick="location.href='/createuser'">Not Registered?</button>
       
     </div>
   </form>

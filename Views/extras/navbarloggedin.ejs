@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Navbar</title>
   <style>
-    
     .navbar {
-      background-color: #00b7ff; /* Change the color to your desired value */
+      background-color: #185899;
+      padding: 10px;
     }
     
     .navbar-brand {
@@ -19,7 +19,7 @@
     .navbar-nav .nav-link {
       font-size: 18px;
       font-family: Arial, sans-serif;
-      color: #333;
+      color: #ffffff;
     }
 
     .nav-item button {
@@ -34,10 +34,9 @@
       margin-right: 5px;
     }
 
-    /* Additional CSS for Navbar */
     .navbar .nav-item a {
       text-decoration: none;
-      color: #333;
+      color: #ffffff;
       font-weight: bold;
       transition: color 0.3s;
       font-size: 18px;
@@ -45,15 +44,17 @@
     }
 
     .navbar .nav-item a:hover {
-      color: #73d90d;
+      color: #12c59e;
     }
 
-   
+    .navbar .nav-item a.active {
+      color: #000000 !important;
+    }
   </style>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
     <div class="container-fluid">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,21 +63,21 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/blog">
+            <a class="nav-link <%- activePage === 'blogs' ? 'active' : '' %>" href="/blog">
               <i class="fas fa-newspaper nav-icon"></i>
               Blogs
             </a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="/createblog">
+            <a class="nav-link <%- activePage === 'createblog' ? 'active' : '' %>" href="/createblog">
               <i class="fas fa-plus nav-icon"></i>
-              Add Blog
+              Create Blog
             </a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="/myblogs">
+            <a class="nav-link <%- activePage === 'myBlogs' ? 'active' : '' %>" href="/myblogs">
               <i class="fas fa-eye"></i>
               My Blogs
             </a>
@@ -85,7 +86,7 @@
 
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/logout">
+            <a class="nav-link <%- activePage === 'logout' ? 'active' : '' %>" href="/logout">
               <i class="fas fa-sign-out-alt nav-icon"></i>
               Logout
             </a>

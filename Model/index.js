@@ -29,9 +29,18 @@ db.sequelize = sequelize;
 
 db.user = require("./userModel.js")(sequelize, DataTypes);
 db.blog = require("./blogModel.js")(sequelize, DataTypes);
+db.comment = require("./commentModel.js" )(sequelize, DataTypes);
 
-//relation between tables
+//relation between tables users and blogs
 db.user.hasMany(db.blog);
 db.blog.belongsTo(db.user);
+
+//relation between tables users and comment
+db.user.hasMany(db.comment);
+db.comment.belongsTo(db.user);
+
+//relation between tables comment and blogs
+db.blog.hasMany(db.comment);
+db.comment.belongsTo(db.blog);
 
 module.exports = db;
