@@ -8,6 +8,8 @@ require("./Config/dbConfig");
 const ejs= require("ejs");
 const userController = require ("./Controller/userController");
 const blogController= require("./Controller/blogController");
+const commentController= require("./Controller/commentController");
+
 const session=require('express-session')
 const flash=require('connect-flash')
 
@@ -73,6 +75,10 @@ app.get("/edit/:id", authController.isAuthenticated, blogController.editBlog);//
 app.post("/updateblog/:id", authController.isAuthenticated, upload.single('image'), blogController.updateBlog);
 
 app.get("/delete/:id", authController.isAuthenticated, blogController.deleteBlog);//delete blog
+
+app.get("/eachblog/:blogId", authController.isAuthenticated, blogController.eachBlog);
+app.post("/addComment/:blogId", authController.isAuthenticated, commentController.addComment);
+
 
 
 app.listen(process.env.PORT, () => {

@@ -123,6 +123,12 @@
       font-size: 20px;
       color: #007bff;
     }
+
+    .show-more-link{
+      color: #000;
+      font-style: italic;
+      font-family: Arial, Helvetica, sans-serif;
+    }
   </style>
   
 </head>
@@ -143,17 +149,12 @@
           <p class="blog-description card-text"><%- blog.description %></p>
           <div class="line"></div>
           <div class="blog-info">
-            <p>Posted by: <%- blog.authorName %></p>
+            <p>Posted by: <%- blog.name %></p>
           </div>
           <div class="blog-info">
-            <p>Created at: <%- moment(blog.createdAt).format('MMMM Do YYYY, h:mm:ss a') %></p>
+            <p>Created at: <%- moment(blog.createdAt).format('MMMM Do YYYY, h:mm:ss a') %></p><br>
           </div>
-          <div class="comment-section">
-            <input type="text" class="comment-input" placeholder="Write a comment...">
-            <button type="submit" class="comment-icon-button">
-              <i class="fas fa-comment comment-icon"></i>
-            </button>
-          </div>
+          <a href="/eachblog/<%- blog.id %>" class="show-more-link">Show more..</a>
         </div>
       </div>
     <% }) %>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blog View</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
+  <style>
+    body {
+      background: linear-gradient(to right, #73fff6, #00b7ff);
+      padding: 20px;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 40px;
+      padding: 10px;
+      background-color: transparent;
+    }
+
+    .blog-post {
+      background-color: #f2f2f2;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      width: 700px;
+      margin-bottom: 10px;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .blog-image {
+      max-width: 100%;
+      height: 250px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    .blog-title {
+      font-size: 30px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .blog-description {
+      margin-bottom: 20px;
+      font-size: 20px;
+    }
+
+    .line {
+      width: 100%;
+      height: 1px;
+      background-color: #000;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .blog-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px;
+      font-size: 12px;
+    }
+
+    .comment-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .comment-input {
+      flex-grow: 1;
+      padding: 5px;
+      border-color: #000;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+
+    .comment-icon-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .comment-icon {
+      font-size: 20px;
+      color: #007bff;
+    }
+
+    .comment-list-container {
+      max-height: 85px;
+      overflow-y: auto;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .comment-list {
+      padding: 10px;
+      height: 70px; /* Adjust the height as per your preference */
+      max-height: 500px;
+      overflow-y: auto;
+      font-size: 16px;
+    }
+
+    .comment-list::-webkit-scrollbar {
+      width: 8px;
+      background-color: transparent;
+    }
+
+    .comment-list::-webkit-scrollbar-thumb {
+      background-color: #f4f4f456;
+     
+      
+       
+    }
+
+
+    .comment-list::-webkit-scrollbar-track {
+      background-color: rgba(0, 0, 0, 0.367); /* Set the color of the scrollbar thumb */
+      border-radius: 6px;
+    }
+
+
+  
+      
+
+    .comment-item {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .comment-author {
+      font-weight: bold;
+      margin-right: 5px;
+    }
+
+    .comment-text {
+      margin-left: 5px;
+    }
+  /* navbar CSS */
+    .navbar {
+      background-color: #18599a;
+      padding: 10px;
+    }
+
+    .navbar-brand {
+      font-size: 24px;
+      font-family: Arial, sans-serif;
+    }
+
+    .navbar-nav .nav-link {
+      font-size: 18px;
+      font-family: Arial, sans-serif;
+      color: #ffffff;
+    }
+
+    .navbar .nav-item {
+      margin-right: 10px;
+    }
+
+    .navbar .nav-item a {
+      text-decoration: none;
+      color: #fffcfc;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .navbar .nav-item a:hover {
+      color: #12c59e;
+    }
+
+    .navbar .nav-item a.active {
+      color: #000000 !important;
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link"  href="/blog">
+          <i class="fas fa-newspaper"></i> Blogs
+        </a>
+      </li>
+      </ul>
+  </nav>
+  <!-- blogs -->
+  <div class="container">
+    <div class="blog-post card">
+      <img class="blog-image card-img-top" src="<%- blog.image %>" alt="Image 1">
+      <div class="card-body">
+        <h2 class="blog-title card-title"><%- blog.title %></h2>
+        <p class="blog-description card-text"><%- blog.description %></p>
+        <div class="line"></div>
+        <div class="blog-info">
+          <p>Posted by: <%- blog.name %></p>
+          <p>Created at: <%- moment(blog.createdAt).format('MMMM Do YYYY, h:mm:ss a') %></p>
+        </div>
+        <h4 class="comment-icon-button"> <i class="fas fa-comments comment-icon"> Comments <%=count.commentCount%> </i> </h4>
+
+        <div class="comment-list-container">
+          <div class="comment-list">
+            <!-- <h4 class="comment-icon-button">Comments</h4> -->
+            <% comments.forEach(comment => { %>
+              <div class="comment-item">
+                <span class="comment-author"><i class="fas fa-user"></i> <%- comment.name %>:</span>
+                <span class="comment-text"><%- comment.comment %></span>
+              </div>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+      <form action="/addComment/<%- blog.id %>" method="post" class="comment-section">
+        <input type="text" class="comment-input" name="comment" placeholder="Add a comment...">
+        <button type="submit" class="comment-icon-button">
+          <i class="fas fa-comment-dots comment-icon"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

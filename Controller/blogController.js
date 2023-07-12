@@ -3,6 +3,7 @@ const db = require("../Model/index");
 const moment = require('moment');
 const Blog = db.blog;
 const User = db.user;
+const Comment = db.comment;
 
 exports.blog = async (req, res) => {
     const message = req.flash("success");
@@ -14,10 +15,12 @@ exports.blog = async (req, res) => {
     // }
     // );
 
-    const blogs = await db.sequelize.query(`SELECT blogs.*, users.name AS authorName FROM blogs JOIN users ON blogs.userId = users.id`, 
-      { type: QueryTypes.SELECT}
-      );
-
+    const blogs =await db.sequelize.query(
+      "SELECT blogs.id,blogs.title,blogs.description,blogs.image,blogs.createdAt,users.name FROM blogs JOIN users ON blogs.userId=users.id",
+      {
+        type: QueryTypes.SELECT,
+      }
+    );
     // console.log(blogs)
     res.render("blog", { blogs, success: message, moment: moment, activePage: 'blogs' });
 };
@@ -27,6 +30,7 @@ exports.blog = async (req, res) => {
 exports.renderCreateBlog = async (req, res) => {
   res.render("createblog", { success: req.flash("success"), activePage: "createblog" });
 };
+
 
 //C-->Create
 exports.createBlog = async (req, res) => {
@@ -76,6 +80,7 @@ exports.editBlog = async (req, res) => {
   res.render("editblog", { blog: blog[0] , success: req.flash("success") });
 };
 
+
 exports.updateBlog = async (req, res) => {
   let updateData = {
     title: req.body.title,
@@ -110,7 +115,56 @@ exports.deleteBlog = async (req, res) => {
   res.redirect("/myblogs");
 };
 
-//Add comment to the blogs
-exports.AddComment = async(req, res)=>{
 
-};
+//for each blogs posted by any user
+// exports.eachBlog = async (req, res) => {
+//   const blog = await Blog.findAll({ 
+//     where: {
+//       id: req.params.id,
+//     },
+//   });
+//   res.render("eachblog", {blog: blog[0], moment: moment});
+// };
+
+// exports.eachBlog = async (req, res) => {
+//   console.log(req.params.blogId)
+  // const [blog] = await db.sequelize.query(`SELECT * FROM blogs JOIN users ON blogs.userId=users.id where blogs.id=? `, 
+  //     { type: QueryTypes.SELECT,
+  //       replacements:[req.params.blogId]
+  //     }
+  //     );
+//   res.render("eachblog", {blog: blog, moment: moment});
+// };
+
+//for comments and sinle blog from the main page
+exports.eachBlog=async (req,res)=>{
+
+  //Query to fetch the single blog along with the details of the blog writer
+  const [blog]=await db.sequelize.query('SELECT blogs.id,blogs.title,blogs.description,blogs.createdAt,blogs.image,users.name FROM blogs JOIN users ON blogs.userId=users.id WHERE blogs.id=?',{
+      type:QueryTypes.SELECT,
+      replacements:[req.params.blogId]
+  })
+
+  //Query to fetch the details of comments that is to be passed while rendering single blog
+  const comments = await db.sequelize.query(
+      'SELECT comments.comment, comments.createdAt, users.name, users.image FROM comments JOIN users ON comments.userId = users.id WHERE blogId = ?',
+      {
+        type: QueryTypes.SELECT,
+        replacements: [req.params.blogId],
+      }
+    );
+
+    //Query to count the comments
+    const [commentCount]=await db.sequelize.query('SELECT COUNT(comments.id) AS commentCount FROM comments WHERE blogId = ?',{
+      type:QueryTypes.SELECT,
+      replacements:[req.params.blogId],
+      rew:true
+    })
+
+
+  res.render('eachblog.ejs',{blog:blog, comments:comments,count:commentCount, moment: moment})
+}
+
+
+
+
