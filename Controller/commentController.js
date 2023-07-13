@@ -31,7 +31,7 @@ exports.editComment = async(req, res)=>{
         id: commentId,
       }
     });
-      res.render("editcomment" ,{comment: comment})
+      res.render("editcomment" ,{comment: comment,blogId:blogId})
 }
 
 

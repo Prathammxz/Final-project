@@ -50,6 +50,36 @@
     .navbar .nav-item a.active {
       color: #000000 !important;
     }
+
+    /* Added styles for dropdown */
+    .dropdown-menu {
+      background-color: #185899;
+      border: none;
+      padding: 0;
+    }
+
+    .dropdown-menu a {
+      color: #ffffff;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      padding: 8px 16px;
+      transition: background-color 0.3s;
+    }
+
+    /* .dropdown-menu a:hover,
+    .dropdown-menu a:hover .dropdown-item-icon,
+    .dropdown-menu a:hover .dropdown-item-settings-icon {
+      background-color: #12c59e;
+    } */
+
+    .dropdown-menu .dropdown-item-icon {
+      margin-right: 5px;
+    }
+
+    .dropdown-menu .dropdown-item-settings-icon {
+      margin-left: 5px;
+    }
   </style>
 </head>
 
@@ -85,11 +115,26 @@
         </ul>
 
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link <%- activePage === 'logout' ? 'active' : '' %>" href="/logout">
-              <i class="fas fa-sign-out-alt nav-icon"></i>
-              Logout
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle <%- activePage === 'profile' ? 'active' : '' %>" href="#" role="button" id="navbarDropdown"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="<%= user.image %>" style="width:30px;height:30px; border-radius:50%;margin-right: 60px;">
+              <%= user.name %>
             </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item" href="/account-settings">
+                  <i class="fas fa-cog dropdown-item-icon"></i>
+                  Account Settings
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="/logout">
+                  <i class="fas fa-sign-out-alt dropdown-item-icon"></i>
+                  Logout
+                </a>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>

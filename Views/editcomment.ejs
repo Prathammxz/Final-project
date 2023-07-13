@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Comment</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    /* Custom CSS to center align the form elements */
+    body {
+      background: linear-gradient(to right, #73fff6, #00b7ff);
+    }
+
+    .center-align {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px;
+    }
+
+    .form-field {
+      width: 300px;
+      position: relative;
+      /* Position for icons */
+    }
+
+    .form-control {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .form-box {
+      max-width: 500px;
+      /* Increased width */
+      width: 100%;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+<body>
+  <form action="/updatecomment/<%- blogId%>/<%- comment.id%>" method="POST" class="center-align">
+    <div class="form-box">
+      <h1 class="text-center">Edit Comment</h1><br>
+      <div class="form-field mb-3">
+        <i class="fas fa-comment"></i>
+        <label for="comment" class="form-label">Comment:</label>
+        <textarea class="form-control" name="comment" rows="3" required><%= comment.comment %></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary mt-3">
+        <span class="mr-2">Save <i class="fas fa-save"></i></span>
+      </button>
+
+      <!-- <a href="/commeneats">Back to Comments</a> -->
+    </div>
+  </form>
+</body>
+
+</html>

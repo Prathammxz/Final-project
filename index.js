@@ -77,10 +77,10 @@ app.post("/verifyEmail", userController.verifyEmail);
 app.get("/resetpassword", userController.renderResetPassword);
 app.post("/resetpassword", userController.resetPassword);
 
-app.get("/createblog", blogController.renderCreateBlog); // create blog
+app.get("/createblog",  authController.isAuthenticated, blogController.renderCreateBlog); // create blog
 app.post("/createblog", authController.isAuthenticated, uploads.single("image"), blogController.createBlog)
 
-app.get("/blog", catchAsync(blogController.blog)); //display blogs
+app.get("/blog",authController.isAuthenticated, catchAsync(blogController.blog)); //display blogs
 app.get("/myBlogs", authController.isAuthenticated, catchAsync(blogController.showMyBlogs));
 
 app.get("/single/:id", authController.isAuthenticated, blogController.singleBlog); //single blog
@@ -93,10 +93,10 @@ app.get("/delete/:id", authController.isAuthenticated, blogController.deleteBlog
 app.get("/eachblog/:blogId", authController.isAuthenticated, blogController.eachBlog); // for each blogs in index
 app.post("/addComment/:blogId", authController.isAuthenticated, commentController.addComment); // add comments to blog
 
-app.get("/editcomment/:commentId", authController.isAuthenticated, commentController.editComment); //edit comments
-app.post("/updatecomment/:commentId", authController.isAuthenticated, commentController.updateComment);
+app.get("/editcomment/:blogId/:commentId", authController.isAuthenticated, commentController.editComment); //edit comments
+app.post("/updatecomment/:blogId/:commentId", authController.isAuthenticated, commentController.updateComment);
 
-app.get("/deletecomment/:commentId", authController.isAuthenticated, commentController.deleteComment);//delete comments
+app.get("/deletecomment/:blogId/:commentId", authController.isAuthenticated, commentController.deleteComment);//delete comments
 
 
 app.listen(process.env.PORT, () => {

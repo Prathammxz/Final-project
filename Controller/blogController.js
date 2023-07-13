@@ -2,7 +2,7 @@ const { QueryTypes } = require("sequelize");
 const db = require("../Model/index");
 const moment = require('moment');
 const Blog = db.blog;
-const User = db.user;
+// const User = db.user;
 const Comment = db.comment;
 
 exports.blog = async (req, res) => {
@@ -22,13 +22,13 @@ exports.blog = async (req, res) => {
       }
     );
     // console.log(blogs)
-    res.render("blog", { blogs, success: message, moment: moment, activePage: 'blogs' });
+    res.render("blog", { blogs, success: message, moment: moment, activePage: 'blogs', user:req.user});
 };
 
   
 //render created blog
 exports.renderCreateBlog = async (req, res) => {
-  res.render("createblog", { success: req.flash("success"), activePage: "createblog" });
+  res.render("createblog", { success: req.flash("success"), activePage: "createblog", user:req.user });
 };
 
 
@@ -55,7 +55,7 @@ exports.showMyBlogs = async (req, res) => {
         userId: req.user.id,
       },
     });
-    res.render("myblogs", { myBlogs, success: req.flash("success"), moment: moment , activePage: "myBlogs" });
+    res.render("myblogs", { myBlogs, success: req.flash("success"), moment: moment , activePage: "myBlogs", user: req.user });
 };
   
 
@@ -152,7 +152,7 @@ exports.eachBlog = async (req, res) => {
 
     // Query to fetch the details of comments that are to be passed while rendering the single blog
     const comments = await db.sequelize.query(
-      'SELECT comments.comment, comments.createdAt, users.name, users.image FROM comments JOIN users ON comments.userId = users.id WHERE blogId = ? ORDER BY comments.createdAt DESC',
+      'SELECT comments.id, comments.comment, comments.createdAt, users.name, users.image FROM comments JOIN users ON comments.userId = users.id WHERE blogId = ? ORDER BY comments.createdAt DESC',
       {
         type: QueryTypes.SELECT,
         replacements: [blogId],
