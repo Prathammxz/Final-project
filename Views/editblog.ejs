@@ -12,7 +12,7 @@
   <style>
     body {
       background: linear-gradient(to right, #73fff6, #00b7ff);
-     padding: 20px;
+      padding: 20px;
     }
 
     .center-align {
@@ -49,7 +49,7 @@
 
     .form-field .form-control {
       width: 100%;
-     
+
     }
 
     .description-field {
@@ -65,6 +65,7 @@
       border: #333;
       width: 300px;
     }
+
     .navbar {
       font-family: Arial, sans-serif;
     }
@@ -103,14 +104,14 @@
     }
 
     .navbar .nav-item a:hover {
-    color: #005884;
+      color: #005884;
 
     }
   </style>
 </head>
 
 <body>
-  
+
   <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container-fluid">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -125,10 +126,10 @@
               My Blogs
             </a>
           </li>
-          </ul>
-          </div>
+        </ul>
+      </div>
   </nav>
-<!-- edit blog  -->
+  <!-- edit blog  -->
   <div class="center-align">
     <div class="form-box">
       <h1 class="text-center">Edit Blog</h1>
@@ -143,7 +144,8 @@
         <div class="form-field mb-3">
           <i class="fas fa-file-alt"></i>
           <label for="description" class="form-label">Description:</label>
-          <textarea type="text" class="form-control description-field" name="description" value="<%=blog.description%>"><%=blog.description%></textarea>
+          <textarea type="text" class="form-control description-field" name="description"
+            value="<%=blog.description%>"><%=blog.description%></textarea>
         </div>
 
         <div class="form-field mb-3">
@@ -166,12 +168,12 @@
 
   <script>
     function preview() {
-      frame.src=URL.createObjectURL(event.target.files[0]);
-  }
+      frame.src = URL.createObjectURL(event.target.files[0]);
+    }
   </script>
 
   <!-- Add Font Awesome JS -->
- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 </body>
 
 </html>

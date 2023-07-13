@@ -14,36 +14,39 @@
     body {
       background: linear-gradient(to right, #73fff6, #00b7ff);
     }
-    
+
     .center-align {
       display: flex;
       flex-direction: column;
       align-items: center;
       margin-top: 15px;
     }
+
     .form-field {
       width: 300px;
-      position: relative; /* Position for icons */
-       
+      position: relative;
+      /* Position for icons */
+
     }
 
-    .form-control{
+    .form-control {
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
-    
+
     .form-box {
       margin-top: 35px;
-      max-width: 500px; 
-      height: 600px;/* Increased width */
+      max-width: 500px;
+      height: 600px;
+      /* Increased width */
       width: 100%;
       padding: 20px;
       background-color: #fff;
       border-radius: 15px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      display: flex; 
-      flex-direction: column; 
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center; 
+      justify-content: center;
     }
 
     .btn {
@@ -74,8 +77,8 @@
       margin: 0;
     }
 
-     /* Additional CSS for Navbar */
-     .navbar {
+    /* Additional CSS for Navbar */
+    .navbar {
       background-color: #185899;
       padding: 10px;
     }
@@ -98,7 +101,6 @@
     .navbar .nav-item a.active {
       color: #000000 !important;
     }
-
   </style>
 </head>
 
@@ -122,49 +124,50 @@
       </li>
     </ul>
   </nav>
-  
+
   <div class="center-align">
     <div class="form-box">
       <form action="/createuser" method="post" enctype="multipart/form-data">
         <h1 class="text-center">Register User</h1>
-        
+
         <div class="form-field mb-3">
-            <i class="fas fa-user"></i>
-            <label for="name" class="form-label">Name:</label>
-            <input type="text" class="form-control" name="name" required>
+          <i class="fas fa-user"></i>
+          <label for="name" class="form-label">Name:</label>
+          <input type="text" class="form-control" name="name" required>
         </div>
-  
+
         <div class="form-field mb-3">
-            <i class="fas fa-map-marker-alt"></i>
-            <label for="address" class="form-label">Address:</label>
-            <input type="address" class="form-control" name="address" required>
+          <i class="fas fa-map-marker-alt"></i>
+          <label for="address" class="form-label">Address:</label>
+          <input type="address" class="form-control" name="address" required>
         </div>
-  
+
         <div class="form-field mb-3">
-            <i class="fas fa-envelope"></i>
-            <label for="email" class="form-label">Email:</label>
-            <input type="email" class="form-control" name="email" required>
+          <i class="fas fa-envelope"></i>
+          <label for="email" class="form-label">Email:</label>
+          <input type="email" class="form-control" name="email" required>
         </div>
-  
+
         <div class="form-field mb-3">
-            <i class="fas fa-lock"></i>
-            <label for="password" class="form-label">Password:</label>
-            <input type="password" class="form-control" name="password" required>
+          <i class="fas fa-lock"></i>
+          <label for="password" class="form-label">Password:</label>
+          <input type="password" class="form-control" name="password" required>
         </div>
-        
+
         <div class="form-field mb-3">
           <i class="fas fa-image"></i>
           <label for="image" class="form-label">Image:</label>
           <input type="file" class="form-control" name="image" required>
-  
+
           <button type="submit" class="btn btn-primary mt-3">
-            <span class="mr-2"><i class="fas fa-user-plus"> </i> Register</span> 
-          </button>    
+            <span class="mr-2"><i class="fas fa-user-plus"> </i> Register</span>
+          </button>
         </div>
-       
+
         <div class="line-between"></div>
 
-        <button type="button" class="btn btn-link registered-button" onclick="location.href='/login'">Already Registered?</button>
+        <button type="button" class="btn btn-link registered-button" onclick="location.href='/login'">Already
+          Registered?</button>
 
       </form>
     </div>

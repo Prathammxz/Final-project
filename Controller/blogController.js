@@ -66,7 +66,7 @@ exports.singleBlog = async (req, res) => {
       id: req.params.id,
     },
   });
-  res.render("singleblog", {blog: blog[0], moment: moment});
+  res.render("singleblog", { blog: blog[0], moment: moment});
 };
 
 
@@ -137,34 +137,41 @@ exports.deleteBlog = async (req, res) => {
 // };
 
 //for comments and sinle blog from the main page
-exports.eachBlog=async (req,res)=>{
+exports.eachBlog = async (req, res) => {
+  try {
+    const blogId = req.params.blogId;
 
-  //Query to fetch the single blog along with the details of the blog writer
-  const [blog]=await db.sequelize.query('SELECT blogs.id,blogs.title,blogs.description,blogs.createdAt,blogs.image,users.name FROM blogs JOIN users ON blogs.userId=users.id WHERE blogs.id=?',{
-      type:QueryTypes.SELECT,
-      replacements:[req.params.blogId]
-  })
-
-  //Query to fetch the details of comments that is to be passed while rendering single blog
-  const comments = await db.sequelize.query(
-      'SELECT comments.comment, comments.createdAt, users.name, users.image FROM comments JOIN users ON comments.userId = users.id WHERE blogId = ?',
+    // Query to fetch the single blog along with the details of the blog writer
+    const [blog] = await db.sequelize.query(
+      'SELECT blogs.id, blogs.title, blogs.description, blogs.createdAt, blogs.image, users.name FROM blogs JOIN users ON blogs.userId = users.id WHERE blogs.id = ?',
       {
         type: QueryTypes.SELECT,
-        replacements: [req.params.blogId],
+        replacements: [blogId],
       }
     );
 
-    //Query to count the comments
-    const [commentCount]=await db.sequelize.query('SELECT COUNT(comments.id) AS commentCount FROM comments WHERE blogId = ?',{
-      type:QueryTypes.SELECT,
-      replacements:[req.params.blogId],
-      rew:true
-    })
+    // Query to fetch the details of comments that are to be passed while rendering the single blog
+    const comments = await db.sequelize.query(
+      'SELECT comments.comment, comments.createdAt, users.name, users.image FROM comments JOIN users ON comments.userId = users.id WHERE blogId = ? ORDER BY comments.createdAt DESC',
+      {
+        type: QueryTypes.SELECT,
+        replacements: [blogId],
+      }
+    );
 
+    // Query to count the comments
+    const [commentCount] = await db.sequelize.query(
+      'SELECT COUNT(comments.id) AS commentCount FROM comments WHERE blogId = ?',
+      {
+        type: QueryTypes.SELECT,
+        replacements: [blogId],
+      }
+    );
 
-  res.render('eachblog.ejs',{blog:blog, comments:comments,count:commentCount, moment: moment})
-}
-
-
-
-
+    res.render('eachblog.ejs', { blog, comments, count: commentCount, moment });
+  } catch (error) {
+    console.error(error);
+    // Handle other errors
+    res.status(500).send('Internal Server Error');
+  }
+};

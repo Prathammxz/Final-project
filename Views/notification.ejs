@@ -12,34 +12,36 @@
     body {
       background: linear-gradient(to right, #73fff6, #00b7ff);
     }
-    
+
     .center-align {
       display: flex;
       flex-direction: column;
       align-items: center;
       margin-top: 50px;
     }
-    
+
     .form-field {
       width: 300px;
-      position: relative; /* Position for icons */
+      position: relative;
+      /* Position for icons */
     }
-    
+
     .form-control {
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
-    
+
     .form-box {
-      max-width: 500px; /* Increased width */
+      max-width: 500px;
+      /* Increased width */
       width: 100%;
       padding: 20px;
       background-color: #fff;
       border-radius: 15px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      display: flex; 
-      flex-direction: column; 
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center; 
+      justify-content: center;
     }
 
     .btn {
@@ -47,7 +49,6 @@
       align-items: center;
       justify-content: center;
     }
-
   </style>
 </head>
 
@@ -55,7 +56,7 @@
   <form action="/sendEmail" method="post" class="center-align">
     <div class="form-box">
       <h1 class="text-center">Email Form</h1><br>
-      
+
       <div class="form-field mb-3">
         <i class="fas fa-envelope"></i>
         <label for="subject" class="form-label">Subject:</label>
@@ -69,7 +70,7 @@
       </div>
 
       <button type="submit" class="btn btn-primary mt-3">
-        <span class="mr-2">Send <i class="fas fa-paper-plane"></i></span> 
+        <span class="mr-2">Send <i class="fas fa-paper-plane"></i></span>
       </button>
     </div>
   </form>

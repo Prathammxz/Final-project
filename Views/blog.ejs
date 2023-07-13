@@ -12,10 +12,10 @@
       background: linear-gradient(to right, #73fff6, #00b7ff);
       padding: 20px;
     }
-  
+
     .container {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       grid-gap: 20px;
       border-radius: 10px;
       justify-items: center;
@@ -25,9 +25,9 @@
       height: 75vh;
       background-color: transparent;
       padding: 10px;
-       
+
     }
-  
+
     h1 {
       margin-top: 40px;
       font-size: 30px;
@@ -35,7 +35,7 @@
       color: #000;
       text-align: center;
     }
-  
+
     .blog-post {
       background-color: #f2f2f2;
       padding: 20px;
@@ -47,38 +47,46 @@
       margin-bottom: 2px;
       position: relative;
     }
-  
+
     .blog-image {
       width: 100%;
-      height: 200px; /* Adjust the height as per your preference */
+      height: 200px;
+      /* Adjust the height as per your preference */
       object-fit: cover;
       border-radius: 5px;
       margin-bottom: 10px;
     }
-  
+
     .blog-title {
-      font-size: 20px; /* Adjust the font size as per your preference */
+      font-size: 20px;
+      /* Adjust the font size as per your preference */
       font-weight: bold;
       margin-bottom: 10px;
     }
-  
+
     .blog-description {
-      height: 30px; /* Adjust the height as per your preference */
+      height: 30px;
+      /* Adjust the height as per your preference */
       max-height: 500px;
       overflow-y: auto;
-      font-size: 16px; /* Adjust the font size as per your preference */
+      font-size: 16px;
+      /* Adjust the font size as per your preference */
     }
 
     .blog-description::-webkit-scrollbar {
-      width: 8px; /* Adjust the width as per your preference */
-      background-color: transparent; /* Set the background color of the scrollbar track */
+      width: 8px;
+      /* Adjust the width as per your preference */
+      background-color: transparent;
+      /* Set the background color of the scrollbar track */
     }
 
     .blog-description::-webkit-scrollbar-thumb {
-      background-color: rgba(0, 0, 0, 0.2); /* Set the color of the scrollbar thumb */
-      border-radius: 4px; /* Adjust the border radius as per your preference */
+      background-color: rgba(0, 0, 0, 0.2);
+      /* Set the color of the scrollbar thumb */
+      border-radius: 4px;
+      /* Adjust the border radius as per your preference */
     }
-  
+
     .blog-info {
       display: flex;
       align-items: center;
@@ -86,11 +94,11 @@
       margin-top: 10px;
       font-size: 12px;
     }
-  
+
     .blog-info p {
       margin: 0;
     }
-  
+
     .line {
       width: 100%;
       height: 1px;
@@ -98,13 +106,13 @@
       margin-top: 20px;
       margin-bottom: 20px;
     }
-  
+
     .comment-section {
       display: flex;
       align-items: center;
       margin-top: 10px;
     }
-  
+
     .comment-input {
       flex-grow: 1;
       padding: 5px;
@@ -112,25 +120,25 @@
       border-radius: 5px;
       margin-right: 10px;
     }
-  
+
     .comment-icon-button {
       background: none;
       border: none;
       cursor: pointer;
     }
-  
+
     .comment-icon {
       font-size: 20px;
       color: #007bff;
     }
 
-    .show-more-link{
+    .show-more-link {
       color: #000;
       font-style: italic;
       font-family: Arial, Helvetica, sans-serif;
     }
   </style>
-  
+
 </head>
 
 <body>
@@ -140,23 +148,23 @@
 
   <div class="container">
     <%- include('extras/flash') %>
-   
+
     <% blogs.forEach(blog => { %>
-      <div class="blog-post card">
-        <img class="blog-image card-img-top" src="<%- blog.image %>" alt="Image 1">
-        <div class="card-body">
-          <h2 class="blog-title card-title"><%- blog.title %></h2>
-          <p class="blog-description card-text"><%- blog.description %></p>
-          <div class="line"></div>
-          <div class="blog-info">
-            <p>Posted by: <%- blog.name %></p>
-          </div>
-          <div class="blog-info">
-            <p>Created at: <%- moment(blog.createdAt).format('MMMM Do YYYY, h:mm:ss a') %></p><br>
-          </div>
-          <a href="/eachblog/<%- blog.id %>" class="show-more-link">Show more..</a>
+    <div class="blog-post card">
+      <img class="blog-image card-img-top" src="<%- blog.image %>" alt="Image 1">
+      <div class="card-body">
+        <h2 class="blog-title card-title"><%- blog.title %></h2>
+        <p class="blog-description card-text"><%- blog.description %></p>
+        <div class="line"></div>
+        <div class="blog-info">
+          <p>Posted by: <%- blog.name %></p>
         </div>
+        <div class="blog-info">
+          <p>Created at: <%- moment(blog.createdAt).format('MMMM Do YYYY, h:mm:ss a') %></p><br>
+        </div>
+        <a href="/eachblog/<%- blog.id %>" class="show-more-link">Show more..</a>
       </div>
+    </div>
     <% }) %>
   </div>
 
