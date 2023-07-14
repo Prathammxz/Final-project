@@ -65,6 +65,15 @@ app.get("/index", userController.index);
 app.get("/createuser", userController.renderUser); // create user
 app.post("/createuser", upload.single("image"), userController.createUser);
 
+app.get("/userprofile/:id", authController.isAuthenticated, userController.userProfile);
+
+app.get("/editprofile/:id", authController.isAuthenticated, userController.editProfile); //edit user
+app.post("/updateprofile/:id", authController.isAuthenticated, upload.single('image'), userController.updateProfile);
+
+
+app.get("/deleteprofile/:id", authController.isAuthenticated, userController.deleteProfile);
+
+
 app.get("/login", userController.renderLogin); //login 
 app.post("/login", userController.loginUser);
 app.get("/logout", userController.logoutUser); //logout

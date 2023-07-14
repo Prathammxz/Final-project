@@ -48,6 +48,7 @@ exports.createUser = async (req, res) => {
   res.redirect("/login");
 };
 
+
 exports.renderLogin = async (req, res) => {
 
   res.render("login", { success: req.flash("success"), activePage: "login"  });
@@ -112,6 +113,7 @@ exports.emailNotification = async (req, res) => {
   };
 };
 
+
 //forgot and reset password to continue
 exports.forgotPassword = async (req, res) => {
   res.render("forgotpassword")
@@ -152,6 +154,7 @@ exports.verifyEmail = async (req, res) => {
   }
 };
 
+
 exports.renderResetPassword = (req, res) => {
   res.render("resetpassword", { error: null });
 };
@@ -189,10 +192,67 @@ exports.resetPassword = async (req, res) => {
   }
 };
 
+
 exports.logoutUser = async(req,res) =>{
     req.flash("success", "You have been logged out!");
     res.clearCookie("token")
     res.redirect("/login")
 }
+
+exports.userProfile = async (req, res) => {
+  const user = await User.findOne({
+    where: {
+      id: req.params.id,
+    },
+  });
+  
+  res.render("userprofile", { user:req.user});
+};
+
+
+exports.editProfile = async(req,res) =>{
+  const user = await User.findAll({
+    where: {
+      id: req.params.id,
+    },
+  });
+  res.render("editprofile", { user:req.user , success: req.flash("success") });
+}
+
+exports.updateProfile = async(req,res) =>{
+  let updateData = {
+    name: req.body.name,
+    address: req.body.address,
+    email: req.body.email,
+  };
+
+  if (req.file) {
+    const image = "http://localhost:4000/" + req.file.filename;
+    updateData.image = image;
+  }
+
+  const user = await User.update(updateData, {
+    where: {
+      id: req.params.id
+    },
+  });
+
+  req.flash("success", "User updated successfully!");
+  res.redirect("/userprofile/"+req.params.id);
+}
+
+
+exports.deleteProfile = async (req, res) => {
+  const user = await User.destroy({
+    where: {
+      id: req.params.id,
+    },
+  });
+
+  req.flash("success", "Account deleted successfully!");
+  res.redirect("/");
+};
+
+
 
 

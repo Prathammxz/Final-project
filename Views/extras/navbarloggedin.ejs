@@ -56,6 +56,8 @@
       background-color: #185899;
       border: none;
       padding: 0;
+      transform: translateX(-60px);
+
     }
 
     .dropdown-menu a {
@@ -66,12 +68,6 @@
       padding: 8px 16px;
       transition: background-color 0.3s;
     }
-
-    /* .dropdown-menu a:hover,
-    .dropdown-menu a:hover .dropdown-item-icon,
-    .dropdown-menu a:hover .dropdown-item-settings-icon {
-      background-color: #12c59e;
-    } */
 
     .dropdown-menu .dropdown-item-icon {
       margin-right: 5px;
@@ -88,7 +84,11 @@
     <div class="container-fluid">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <div style="display: flex; align-items: center;">
+          <img src="<%= user.image %>" style="width:30px;height:30px; border-radius:50%; margin-right: 5px;">
+          <span><%= user.name %></span>
+        </div>
+        <span class="navbar-toggler-icon" style="align-self: center;"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto">
@@ -118,12 +118,12 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle <%- activePage === 'profile' ? 'active' : '' %>" href="#" role="button" id="navbarDropdown"
               data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="<%= user.image %>" style="width:30px;height:30px; border-radius:50%;margin-right: 60px;">
-              <%= user.name %>
+              <img src="<%= user.image %>" style="width:30px;height:30px; border-radius:50%;margin-right: 5px;">
+              <span><%= user.name %></span>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li>
-                <a class="dropdown-item" href="/account-settings">
+                <a class="dropdown-item" href="/userprofile/<%- user.id%>">
                   <i class="fas fa-cog dropdown-item-icon"></i>
                   Account Settings
                 </a>

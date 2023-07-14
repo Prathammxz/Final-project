@@ -116,26 +116,6 @@ exports.deleteBlog = async (req, res) => {
 };
 
 
-//for each blogs posted by any user
-// exports.eachBlog = async (req, res) => {
-//   const blog = await Blog.findAll({ 
-//     where: {
-//       id: req.params.id,
-//     },
-//   });
-//   res.render("eachblog", {blog: blog[0], moment: moment});
-// };
-
-// exports.eachBlog = async (req, res) => {
-//   console.log(req.params.blogId)
-  // const [blog] = await db.sequelize.query(`SELECT * FROM blogs JOIN users ON blogs.userId=users.id where blogs.id=? `, 
-  //     { type: QueryTypes.SELECT,
-  //       replacements:[req.params.blogId]
-  //     }
-  //     );
-//   res.render("eachblog", {blog: blog, moment: moment});
-// };
-
 //for comments and sinle blog from the main page
 exports.eachBlog = async (req, res) => {
   try {
