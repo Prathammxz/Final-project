@@ -10,14 +10,15 @@
   <style>
     /* Custom CSS to center align the form elements */
     body {
-      background: linear-gradient(to right, #73fff6, #00b7ff);
+      background: whitesmoke;
     }
 
     .center-align {
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-top: 50px;
+      justify-content: center;
+      height: 100vh;
     }
 
     .form-field {
@@ -27,6 +28,7 @@
     }
 
     .form-control {
+      border: 1px solid black;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
 
@@ -37,6 +39,7 @@
       padding: 20px;
       background-color: #fff;
       border-radius: 15px;
+      border: 1px solid black;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       display: flex;
       flex-direction: column;
@@ -49,10 +52,56 @@
       align-items: center;
       justify-content: center;
     }
+  
+    /* navbar CSS */
+    .navbar {
+      background-color: #000000;
+      padding: 10px;
+    }
+
+    .navbar-brand {
+      font-size: 24px;
+      font-family: Arial, sans-serif;
+    }
+
+    .navbar-nav .nav-link {
+      font-size: 18px;
+      font-family: Arial, sans-serif;
+      color: #ffffff;
+    }
+
+    .navbar .nav-item {
+      margin-right: 10px;
+    }
+
+    .navbar .nav-item a {
+      text-decoration: none;
+      color: #fffcfc;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .navbar .nav-item a:hover {
+      color:#daa71b;
+    }
+
+    .navbar .nav-item a.active {
+      color: #000000 !important;
+    }
   </style>
 </head>
 
 <body>
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/eachblog/<%- blogId%>">
+          <i class="fas fa-comment-alt"></i> Comments
+        </a>
+      </li>
+    </ul>
+  </nav>
+
   <form action="/updatecomment/<%- blogId%>/<%- comment.id%>" method="POST" class="center-align">
     <div class="form-box">
       <h1 class="text-center">Edit Comment</h1><br>

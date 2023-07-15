@@ -7,7 +7,8 @@
   <title>Navbar</title>
   <style>
     .navbar {
-      background-color: #185899;
+      /* background-color: #185899; */
+      background-color: #000000;
       padding: 10px;
     }
 
@@ -19,7 +20,7 @@
     .navbar-nav .nav-link {
       font-size: 18px;
       font-family: Arial, sans-serif;
-      color: #ffffff;
+      color: #daa71b;
     }
 
     .nav-item button {
@@ -36,7 +37,7 @@
 
     .navbar .nav-item a {
       text-decoration: none;
-      color: #ffffff;
+      color:  #ffffff;
       font-weight: bold;
       transition: color 0.3s;
       font-size: 18px;
@@ -44,20 +45,20 @@
     }
 
     .navbar .nav-item a:hover {
-      color: #12c59e;
+      color: #daa71b;
     }
 
     .navbar .nav-item a.active {
-      color: #000000 !important;
+      color: #12c59e !important;
     }
 
     /* Added styles for dropdown */
     .dropdown-menu {
-      background-color: #185899;
+      background-color: #000; /* Changed background color to white */
       border: none;
       padding: 0;
-      transform: translateX(-60px);
-
+      width: 500px;
+      transform: translateX(0px);
     }
 
     .dropdown-menu a {
@@ -66,7 +67,7 @@
       display: flex;
       align-items: center;
       padding: 8px 16px;
-      transition: background-color 0.3s;
+      transition: background-color 0s;
     }
 
     .dropdown-menu .dropdown-item-icon {
@@ -75,6 +76,11 @@
 
     .dropdown-menu .dropdown-item-settings-icon {
       margin-left: 5px;
+    }
+
+    /* Change text color of logout button on hover */
+    .dropdown-menu a[href="/logout"]:hover {
+      color: red;
     }
   </style>
 </head>
@@ -124,8 +130,8 @@
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li>
                 <a class="dropdown-item" href="/userprofile/<%- user.id%>">
-                  <i class="fas fa-cog dropdown-item-icon"></i>
-                  Account Settings
+                  <i class="fas fa-user"></i>
+                  User Profile
                 </a>
               </li>
               <li>

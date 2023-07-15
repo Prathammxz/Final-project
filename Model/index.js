@@ -32,15 +32,15 @@ db.blog = require("./blogModel.js")(sequelize, DataTypes);
 db.comment = require("./commentModel.js" )(sequelize, DataTypes);
 
 //relation between tables users and blogs
-db.user.hasMany(db.blog);
+db.user.hasMany(db.blog, { onDelete: 'CASCADE' });
 db.blog.belongsTo(db.user);
 
 //relation between tables users and comment
-db.user.hasMany(db.comment);
+db.user.hasMany(db.comment, { onDelete: 'CASCADE' });
 db.comment.belongsTo(db.user);
 
 //relation between tables comment and blogs
-db.blog.hasMany(db.comment);
+db.blog.hasMany(db.comment, { onDelete: 'CASCADE' }) ;
 db.comment.belongsTo(db.blog);
 
 module.exports = db;

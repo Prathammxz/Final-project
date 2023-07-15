@@ -21,12 +21,12 @@ const {
 } = require('./Services/multerConfig'); // when you add new folder for image, pass its var from multerConfig here.
 const upload = multer({
   storage: storage
-});
+});//                                                                                   #upload---> user
 
 //for blogs
 const uploads = multer({
   storage: blogStorage
-}); //to add in new folder,--> const name: ({storage: var name from multerConfig })
+}); //to add in new folder,--> const name: ({storage: var name from multerConfig })    #uploads---> blogs
 
 const dotenv = require('dotenv'); //JWT
 const authController = require('./Middleware/isAuthenticated');
@@ -62,6 +62,7 @@ app.get("/", userController.index); //index page
 app.get("/index", userController.index);
 
 
+//User related get & post 
 app.get("/createuser", userController.renderUser); // create user
 app.post("/createuser", upload.single("image"), userController.createUser);
 
@@ -70,9 +71,7 @@ app.get("/userprofile/:id", authController.isAuthenticated, userController.userP
 app.get("/editprofile/:id", authController.isAuthenticated, userController.editProfile); //edit user
 app.post("/updateprofile/:id", authController.isAuthenticated, upload.single('image'), userController.updateProfile);
 
-
-app.get("/deleteprofile/:id", authController.isAuthenticated, userController.deleteProfile);
-
+app.get("/deleteprofile/:id", authController.isAuthenticated, userController.deleteProfile);//delete user and everything related to it
 
 app.get("/login", userController.renderLogin); //login 
 app.post("/login", userController.loginUser);
@@ -86,6 +85,8 @@ app.post("/verifyEmail", userController.verifyEmail);
 app.get("/resetpassword", userController.renderResetPassword);
 app.post("/resetpassword", userController.resetPassword);
 
+
+//Blog related get & post
 app.get("/createblog",  authController.isAuthenticated, blogController.renderCreateBlog); // create blog
 app.post("/createblog", authController.isAuthenticated, uploads.single("image"), blogController.createBlog)
 
@@ -95,10 +96,12 @@ app.get("/myBlogs", authController.isAuthenticated, catchAsync(blogController.sh
 app.get("/single/:id", authController.isAuthenticated, blogController.singleBlog); //single blog
 
 app.get("/edit/:id", authController.isAuthenticated, blogController.editBlog); //edit blog
-app.post("/updateblog/:id", authController.isAuthenticated, upload.single('image'), blogController.updateBlog);
+app.post("/updateblog/:id", authController.isAuthenticated, uploads.single('image'), blogController.updateBlog);
 
 app.get("/delete/:id", authController.isAuthenticated, blogController.deleteBlog); //delete blog
 
+
+//Comment related get & post
 app.get("/eachblog/:blogId", authController.isAuthenticated, blogController.eachBlog); // for each blogs in index
 app.post("/addComment/:blogId", authController.isAuthenticated, commentController.addComment); // add comments to blog
 
@@ -106,6 +109,8 @@ app.get("/editcomment/:blogId/:commentId", authController.isAuthenticated, comme
 app.post("/updatecomment/:blogId/:commentId", authController.isAuthenticated, commentController.updateComment);
 
 app.get("/deletecomment/:blogId/:commentId", authController.isAuthenticated, commentController.deleteComment);//delete comments
+
+
 
 
 app.listen(process.env.PORT, () => {

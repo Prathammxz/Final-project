@@ -11,10 +11,10 @@ exports.index = async (req, res) => {
 };
 
 
+// Create User 
 exports.renderUser = async (req, res) => {
   res.render("createuser",{activePage: "createuser" });
 };
-
 exports.createUser = async (req, res) => {
   const {
     name,
@@ -49,11 +49,11 @@ exports.createUser = async (req, res) => {
 };
 
 
+// Login User
 exports.renderLogin = async (req, res) => {
 
   res.render("login", { success: req.flash("success"), activePage: "login"  });
 };
-
 exports.loginUser = async (req, res) => {
   const { email, password } = req.body;
   const foundUser = await db.user.findOne({
@@ -80,11 +80,10 @@ exports.loginUser = async (req, res) => {
 };
 
 
-
+//To send email to user(Mass Notification)
 exports.renderEmail = async (req, res) => {
   res.render("notification");
 };
-
 exports.emailNotification = async (req, res) => {
   try {
     const {
@@ -119,6 +118,7 @@ exports.forgotPassword = async (req, res) => {
   res.render("forgotpassword")
 };
 
+//Verify user email to send OTP
 exports.verifyEmail = async (req, res) => {
   const email = req.body.email
   const isPresent = await User.findAll({
@@ -155,6 +155,7 @@ exports.verifyEmail = async (req, res) => {
 };
 
 
+//Reset Password
 exports.renderResetPassword = (req, res) => {
   res.render("resetpassword", { error: null });
 };
@@ -193,12 +194,15 @@ exports.resetPassword = async (req, res) => {
 };
 
 
+//logout user
 exports.logoutUser = async(req,res) =>{
     req.flash("success", "You have been logged out!");
     res.clearCookie("token")
     res.redirect("/login")
 }
 
+
+//Display User profile 
 exports.userProfile = async (req, res) => {
   const user = await User.findOne({
     where: {
@@ -210,6 +214,7 @@ exports.userProfile = async (req, res) => {
 };
 
 
+//Edit User
 exports.editProfile = async(req,res) =>{
   const user = await User.findAll({
     where: {
@@ -242,6 +247,7 @@ exports.updateProfile = async(req,res) =>{
 }
 
 
+//Delete User 
 exports.deleteProfile = async (req, res) => {
   const user = await User.destroy({
     where: {

@@ -22,6 +22,7 @@ exports.addComment = async (req, res) => {
   res.redirect("/eachblog/" + req.params.blogId + "#comments");
 };
 
+
 //to edit the posted comments
 exports.editComment = async(req, res)=>{
     const blogId = req.params.blogId;
@@ -33,7 +34,6 @@ exports.editComment = async(req, res)=>{
     });
       res.render("editcomment" ,{comment: comment,blogId:blogId})
 }
-
 
 exports.updateComment = async(req, res)=>{
   

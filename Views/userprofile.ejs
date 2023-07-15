@@ -12,7 +12,7 @@
   <style>
     /* Custom CSS to center align the form elements */
     body {
-      background: linear-gradient(to right, #73fff6, #00b7ff);
+      background: whitesmoke;
     }
 
     .center-align {
@@ -28,20 +28,18 @@
       /* Position for icons */
     }
 
-    .form-control {
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
+    
 
     .form-box {
-      margin-top: 35px;
+      margin-top: 90px;
       max-width: 500px;
       height: 600px;
       /* Increased width */
       width: 100%;
       padding: 20px;
-      background-color: #fff;
       border-radius: 15px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      border-color: #000;
+      box-shadow: 0 0 10px rgb(0, 0, 0);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -61,10 +59,11 @@
     .line-between {
       width: 100%;
       height: 1px;
-      background-color: #bab9b9;
+      background-color: #000000;
       margin: 10px 0;
     }
 
+   
     .registered-button {
       background-color: transparent;
       border: none;
@@ -75,11 +74,61 @@
       padding: 0;
       margin: 0;
     }
+
+    .btn-delete {
+      background-color: #dc3545;
+    }
+
+      /* navbar CSS */
+      .navbar {
+      background-color: #000000;
+      padding: 10px;
+    }
+
+    .navbar-brand {
+      font-size: 24px;
+      font-family: Arial, sans-serif;
+    }
+
+    .navbar-nav .nav-link {
+      font-size: 18px;
+      font-family: Arial, sans-serif;
+      color: #ffffff;
+    }
+
+    .navbar .nav-item {
+      margin-right: 10px;
+    }
+
+    .navbar .nav-item a {
+      text-decoration: none;
+      color: #fffcfc;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .navbar .nav-item a:hover {
+      color:#daa71b;
+    }
+
+    .navbar .nav-item a.active {
+      color: #000000 !important;
+    }
   </style>
 </head>
 
 <body>
- 
+
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/blog">
+          <i class="fas fa-newspaper"></i> Blogs
+        </a>
+      </li>
+    </ul>
+  </nav>
+
   <div class="center-align">
     <div class="form-box">
       <h1 class="text-center">User Profile</h1>
@@ -109,11 +158,11 @@
       <div class="line-between"></div>
 
       <button type="button" class="btn btn-primary mt-3" onclick="location.href='/editprofile/<%- user.id%>'">
-        <i class="fas fa-user-edit"></i> Edit Profile
+        <i class="fas fa-user-edit"></i>  Edit Profile
       </button>
 
-      <button type="button" class="btn btn-danger mt-3" onclick="location.href='/deleteprofile/<%- user.id%>'">
-        <i class="fas fa-trash-alt"></i> Delete Account
+      <button type="button" class="btn btn-danger mt-3 btn-delete" onclick="location.href='/deleteprofile/<%- user.id%>'">
+        <i class="fas fa-trash-alt"></i>  Delete Account
       </button>
     </div>
   </div>
