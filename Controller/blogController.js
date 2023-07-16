@@ -43,7 +43,7 @@ exports.createBlog = async (req, res) => {
     userId: req.user.id, // passing the user id
   });
 
-  req.flash("success", "Blog created successfully!");
+  req.flash("success", "Blog posted successfully!");
   res.redirect("/blog");
 };
 

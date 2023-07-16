@@ -151,7 +151,7 @@
   <div class="container">
     <%- include('extras/flash') %>
 
-    <% blogs.forEach(blog => { %>
+    <% blogs.forEach(blog => { %>       <!--to display the latest blog at the top,  blogs.reverse().forEach({  -->
     <div class="blog-post card">
       <img class="blog-image card-img-top" src="<%- blog.image %>" alt="Image 1">
       <div class="card-body">
