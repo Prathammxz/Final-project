@@ -70,7 +70,7 @@ exports.singleBlog = async (req, res) => {
 };
 
 
-//U--> Update the Blog
+// Edit the Blog
 exports.editBlog = async (req, res) => {
   const blog = await Blog.findAll({
     where: {
@@ -81,6 +81,7 @@ exports.editBlog = async (req, res) => {
 };
 
 
+//U--> Update the blogs
 exports.updateBlog = async (req, res) => {
   let updateData = {
     title: req.body.title,
@@ -116,7 +117,7 @@ exports.deleteBlog = async (req, res) => {
 };
 
 
-//for comments and sinle blog from the main page
+//for comments and single blog from the main page
 exports.eachBlog = async (req, res) => {
   try {
     const blogId = req.params.blogId;
@@ -139,7 +140,7 @@ exports.eachBlog = async (req, res) => {
       }
     );
 
-    // Query to count the comments
+    // Query to count the number of comments
     const [commentCount] = await db.sequelize.query(
       'SELECT COUNT(comments.id) AS commentCount FROM comments WHERE blogId = ?',
       {
@@ -151,7 +152,7 @@ exports.eachBlog = async (req, res) => {
     res.render('eachblog.ejs', { blog, comments, count: commentCount, moment });
   } catch (error) {
     console.error(error);
-    // Handle other errors
+    // Handle any other errors
     res.status(500).send('Internal Server Error');
   }
 };

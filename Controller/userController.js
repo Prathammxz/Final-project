@@ -11,7 +11,7 @@ exports.index = async (req, res) => {
 };
 
 
-// Create User 
+// Create User  
 exports.renderUser = async (req, res) => {
   res.render("createuser",{activePage: "createuser" });
 };
@@ -80,7 +80,7 @@ exports.loginUser = async (req, res) => {
 };
 
 
-//To send email to user(Mass Notification)
+//To send email to user (Mass Notification)
 exports.renderEmail = async (req, res) => {
   res.render("notification");
 };
@@ -118,7 +118,7 @@ exports.forgotPassword = async (req, res) => {
   res.render("forgotpassword")
 };
 
-//Verify user email to send OTP
+//Verify user email to send OTP for password reset
 exports.verifyEmail = async (req, res) => {
   const email = req.body.email
   const isPresent = await User.findAll({
@@ -202,7 +202,7 @@ exports.logoutUser = async(req,res) =>{
 }
 
 
-//Display User profile 
+//Display User's Profile 
 exports.userProfile = async (req, res) => {
   const user = await User.findOne({
     where: {
@@ -214,7 +214,7 @@ exports.userProfile = async (req, res) => {
 };
 
 
-//Edit User
+//Edit User's Profile
 exports.editProfile = async(req,res) =>{
   const user = await User.findAll({
     where: {
@@ -247,7 +247,7 @@ exports.updateProfile = async(req,res) =>{
 }
 
 
-//Delete User 
+//Delete User's Profile
 exports.deleteProfile = async (req, res) => {
   const user = await User.destroy({
     where: {

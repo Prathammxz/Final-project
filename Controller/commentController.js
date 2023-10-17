@@ -3,7 +3,7 @@ const db = require("../Model/index");
 const Comment = db.comment;
 const Blog = db.blog;
 
-// Add comment to the blogs
+// Add comment to a blog
 exports.addComment = async (req, res) => {
   const { comment } = req.body;
 
@@ -55,8 +55,8 @@ exports.updateComment = async(req, res)=>{
     res.redirect("/eachblog/" + req.params.blogId)
 }
 
-// delete the comment
-// delete the comment
+
+// delete the comment posted by a user
 exports.deleteComment = async (req, res) => {
   const commentId = req.params.commentId;
   const blogId = req.params.blogId;
